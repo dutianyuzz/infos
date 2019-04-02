@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siifi.infos.mapper.HoneyMapper">
+
+<!--    <select id="listAll" resultType="com.siifi.infos.entity.Honey">
+        select HONEY_ID,HONEY_NAME,UTTER,SHOU,DATE,IMAGEPATH from sys_honey;
+    </select>-->
+
+    <select id="findById" resultType="com.siifi.infos.entity.Honey" parameterType="int">
+        select HONEY_ID,HONEY_NAME,UTTER,SHOU,DATE,IMAGEPATH from sys_honey where HONEY_ID=#{honeyId};
+    </select>
+
+    <insert id="save" parameterType="com.siifi.infos.entity.Honey">
+        insert into sys_honey  (HONEY_NAME,UTTER,SHOU,DATE,IMAGEPATH) values (#{honeyName},#{utter},#{shou},#{date},#{imagePath});
+        <selectKey keyProperty="honeyId" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="edit" parameterType="com.siifi.infos.entity.Honey">
+        update sys_honey
+        <set>
+            <if test="honeyName != null and honeyName != ''">
+                HONEY_NAME=#{honeyName},
+            </if>
+            <if test="utter != null and utter != ''">
+                UTTER=#{utter},
+            </if>
+            <if test="shou != null and shou != ''">
+                SHOU=#{shou},
+            </if>
+            <if test="date != null and date != ''">
+                DATE=#{date},
+            </if>
+            <if test="imagePath != null and imagePath != ''">
+                IMAGEPATH=#{imagePath},
+            </if>
+        </set>
+        where HONEY_ID=#{honeyId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from sys_honey where HONEY_ID=#{honeyId};
+    </delete>
+
+</mapper>

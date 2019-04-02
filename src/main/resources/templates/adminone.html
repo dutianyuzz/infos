@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $("tr:even").addClass("even");    //单行
+            $("tr:odd").addClass("odd");      //双行
+        });
+
+        $(document).ready(function(){
+            $("tr").dblclick(function(){                //双击事件
+                $(this).addClass("two");
+            });
+        });
+    </script>
+    <style>
+        .even{
+            background: yellow;              //单行黄色
+        }
+        .odd{
+            background: green;           //双行绿色
+        }
+        .two{
+            background: blue;          //双击蓝色
+        }
+    </style>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <td>测试1</td>
+        <td>测试2</td>
+        <td>测试3</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+    </tr>
+
+</table>
+</body>
+</html>

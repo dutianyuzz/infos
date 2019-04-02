@@ -1,0 +1,28 @@
+.pages #a2 {
+    display: inline-block;
+    vertical-align: top;
+    height: 38px;
+    line-height: 40px;
+    padding: 0 15px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    color: #383838;
+    font-size: 14px;
+    margin-right: 30px;
+}
+
+.pages .nex {
+    margin-right: 0
+}
+
+.pages a.active {
+    border: 1px solid #44a8f2;
+    background-color: #44a8f2;
+    color: #fff;
+}
+
+.pages a:hover {
+    border: 1px solid #44a8f2;
+    background-color: #44a8f2;
+    color: #fff;
+}

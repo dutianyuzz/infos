@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siifi.infos.mapper.ColumnMapper">
+
+    <select id="listAll" resultType="com.siifi.infos.entity.Column">
+        select COLUMN_ID,COLUMN_NAME,SHOU from sys_columu;
+    </select>
+
+    <select id="findById" resultType="com.siifi.infos.entity.Column" parameterType="int">
+        select COLUMN_ID,COLUMN_NAME,SHOU,CONTENT from sys_columu where COLUMN_ID=#{columnId};
+    </select>
+
+    <insert id="save" parameterType="com.siifi.infos.entity.Column">
+        insert into sys_columu  (COLUMN_NAME,SHOU) values (#{columnName},#{shou});
+    </insert>
+
+    <update id="edit" parameterType="com.siifi.infos.entity.Column">
+        update sys_columu 
+        <set>
+            <if test="columnName != null and columnName != ''">
+                COLUMN_NAME=#{columnName},
+            </if>
+            <if test="shou != null and shou != ''">
+                SHOU=#{shou},
+            </if>
+            <if test="content != null and content != ''">
+                CONTENT=#{content}
+            </if>
+        </set>
+        where COLUMN_ID=#{columnId}
+    </update>
+    
+    <delete id="delete" parameterType="int">
+        delete from sys_columu where COLUMN_ID=#{columnId};
+    </delete>
+
+</mapper>

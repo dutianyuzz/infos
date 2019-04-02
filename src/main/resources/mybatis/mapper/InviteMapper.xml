@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siifi.infos.mapper.InviteMapper">
+
+<!--    <select id="listAll" resultType="com.siifi.infos.entity.Invite">
+        select INVITE_ID,INVITE_NAME,PERSON_NAME,DATE,INVITE_TEXT from sys_invite;
+    </select>-->
+
+    <select id="findById" resultType="com.siifi.infos.entity.Invite" parameterType="int">
+        select INVITE_ID,INVITE_NAME,PERSON_NAME,DATE,INVITE_TEXT from sys_invite where INVITE_ID=#{inviteId};
+    </select>
+
+    <insert id="save" parameterType="com.siifi.infos.entity.Invite">
+        insert into sys_invite  (INVITE_NAME,PERSON_NAME,DATE,INVITE_TEXT) values (#{inviteName},#{personName},#{date},#{inviteText});
+    </insert>
+
+    <update id="edit" parameterType="com.siifi.infos.entity.Invite">
+        update sys_invite
+        <set>
+            <if test="inviteName != null and inviteName != ''">
+                INVITE_NAME=#{inviteName},
+            </if>
+            <if test="personName != null and personName != ''">
+                PERSON_NAME=#{personName},
+            </if>
+            <if test="date != null and date != ''">
+                DATE=#{date},
+            </if>
+            <if test="inviteText != null and inviteText != ''">
+                INVITE_TEXT=#{inviteText},
+            </if>
+        </set>
+        where INVITE_ID=#{inviteId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from sys_invite where INVITE_ID=#{inviteId};
+    </delete>
+
+    <select id="findJobById" resultType="com.siifi.infos.entity.Jobintro" parameterType="int">
+        select JOBINTRO_ID,CONTENT from sys_jobintro where JOBINTRO_ID=#{jobintroId};
+    </select>
+
+    <update id="editJob" parameterType="com.siifi.infos.entity.Jobintro">
+        update sys_jobintro
+        <set>
+            <if test="content != null and content != ''">
+                CONTENT=#{content},
+            </if>
+        </set>
+        where JOBINTRO_ID=#{jobintroId}
+    </update>
+
+</mapper>

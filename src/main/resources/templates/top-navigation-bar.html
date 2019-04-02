@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>顶部导航栏</title>
+</head>
+
+<body>
+<div class="header">
+    <div class="HeaderTop">
+        <div class="cmain">
+            <div class="lf">
+                欢迎进入中网国金集团有限公司官方网站！ &nbsp;&nbsp;&nbsp;
+                <a class="img_email"  href="#" style="background-image:url(../images/you_jian.png)">企业邮箱&nbsp;&nbsp;|&nbsp;</a>
+                <a class="img_office_platform" href="#" style="background-image:url(../images/ban_gong.png)">办公平台&nbsp;&nbsp;|&nbsp;</a>
+                <a class="img_business_affairs" href="#" style="background-image:url(../images/shang_yei.png)">商务信息平台</a>
+            </div>
+            <div class="HeaderTel" style="background-image: url(../images/tel1.png)">全国免费咨询服务热线：<em>+8610-67837666</em></div>
+        </div>
+    </div>
+    <div class="HeaderBot">
+        <div class="cmain">
+            <div class="logo">
+                <a href="index.html"><img src="../images/logo03.png" alt=""/></a>
+            </div>
+
+            <div class="HeaderList">
+                <ul>
+                    <li id="index" class="dropdown_0">
+                        <!-- class="active" -->
+                        <a id="a_01" href="/infos/index.html">
+                            <span class="span1">首页</span>
+                            <span class="span2">HOME</span>
+                            <i class="med"></i>
+                        </a>
+                    </li>
+
+                    <li class="dropdown_1">
+                        <a id="hhh" href="#">
+                            <span class="span1">关于集团</span>
+                            <span class="span2">ABOUT GROUP</span>
+                            <i class="med"></i>
+                        </a>
+                        <div class="dropdown-content_1" id="one">
+                            <!--导航栏-->
+                        </div>
+                    </li>
+                    </li>
+
+                    <li class="dropdown_2">
+                        <a href="#">
+                            <span class="span1">产品与解决方案</span>
+                            <span class="span2">PRODUCTS & SOLUTION</span>
+                            <i class="med"></i>
+                        </a>
+                        <div class="dropdown-content_2">
+                            <a th:href="@{'/infos/industryIntelligent?id='+${box.intellId}}" id="a_07">智能产业</a>
+                            <a th:href="@{'/infos/industryEcology?id='+${box.zoologyId}}" id="a_08">生态产业</a>
+                            <a th:href="@{'/infos/industryMedia?id='+${box.mediaId}}" id="a_09">文化传媒</a>
+                            <a th:href="@{'/infos/industryEducation?id='+${box.cultivateId}}" id="a_091">教育培训</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a id="a_11" href="#">
+                            <span class="span1">集团动态</span>
+                            <span class="span2">GROUP DYNAMICS</span>
+                            <i class="med"></i>
+                        </a>
+                    </li>
+                    <li class="dropdown_3">
+                        <a href="#">
+                            <span class="span1">社会责任</span>
+                            <span class="span2">SOCIAL RESPONSIBILITY</span>
+                            <i class="med"></i>
+                        </a>
+                        <div class="dropdown-content_3">
+                            <a id="a_12" href="/infos/responsibilityHonest">诚信声明</a>
+                            <a id="a_13" href="/infos/responsibilityBlacklist">黑名单</a>
+                        </div>
+                    </li>
+                    <li class="dropdown_4">
+                        <a href="/infos/tome" id="a_14">
+                            <span class="span1">联系方式</span>
+                            <span class="span2">CONTACT INFORMATION</span>
+                            <i class="med"></i>
+                        </a>
+                    </li>
+                    <li class="dropdown_5">
+                        <a href="#">
+                            <span class="span1">招贤纳士</span>
+                            <span class="span2">RECRUIT</span>
+                            <i class="med"></i>
+                        </a>
+                        <div class="dropdown-content_5">
+                            <a id="a_18" href="/infos/recruitingIntroduction">招聘简介</a>
+                            <a id="a_19" href="/infos/recruitingPosition">招聘职位</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/site/top-navigation-bar.js"></script>
+
+<script>
+    $(function () {
+        $.ajax({
+            url: '/infos/column/lists',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                var a = "";
+                $.each(data, function (index, item) {
+                    a += '<a href="/infos/about?id=' + item.columnId + '">' + item.columnName + '</a>';
+                    $("#one").html(a);
+                });
+                $("#one").append('<a href="/infos/aboutCer">企业资质</a>');
+                var tid = $("#one a").length;
+                for (var i = 0; i < tid; i++) {
+                    var vid = $("#one a");
+                    vid[i].id = "a_" + i;
+                }
+
+                $("#one a").click(function () {
+                    var n = $("#one a").index(this);
+                    $.ajax({
+                        url: '/infos/saveNn',
+                        type: 'post',
+                        async: false,
+                        data: ({
+                            n: n
+                        }),
+                        dataType: 'json',
+                        success: function (data) {
+                        },
+                        error: function () {
+                            alert("请求失败");
+                        }
+                    });
+                });
+
+                $("#a_07").click(function () {
+                    $.ajax({
+                        url: '/infos/saveNna',
+                        type: 'post',
+                        async: false,
+                        data: ({
+                            n: 0
+                        }),
+                        dataType: 'json',
+                        success: function (data) {
+                        },
+                        error: function () {
+                            alert("请求失败");
+                        }
+                    });
+                });
+
+                $("#a_08").click(function () {
+                    $.ajax({
+                        url: '/infos/saveNnb',
+                        type: 'post',
+                        async: false,
+                        data: ({
+                            n: 0
+                        }),
+                        dataType: 'json',
+                        success: function (data) {
+                        },
+                        error: function () {
+                            alert("请求失败");
+                        }
+                    });
+                });
+
+                $("#a_09").click(function () {
+                    $.ajax({
+                        url: '/infos/saveNnc',
+                        type: 'post',
+                        async: false,
+                        data: ({
+                            n: 0
+                        }),
+                        dataType: 'json',
+                        success: function (data) {
+                        },
+                        error: function () {
+                            alert("请求失败");
+                        }
+                    });
+                });
+
+                $("#a_091").click(function () {
+                    $.ajax({
+                        url: '/infos/saveNnd',
+                        type: 'post',
+                        async: false,
+                        data: ({
+                            n: 0
+                        }),
+                        dataType: 'json',
+                        success: function (data) {
+                        },
+                        error: function () {
+                            alert("请求失败");
+                        }
+                    });
+                });
+
+                var liClick = sessionStorage.getItem('liClick');
+                if (liClick) {
+                    //改变id对应的a标签的字体颜色以及加粗
+                    //$('#' + liClick).css('color', 'green');
+                    //$('#' + liClick).css('font-weight', '800');
+
+                    //改变父控件背景颜色
+                    $('#' + liClick).parentsUntil("ul").css({
+                        "background-color": "#44a8f2"
+                    });
+                    //改变父控件中的字体颜色
+                    $('#' + liClick).parentsUntil("ul").find('a span').css({
+                        "color": "#ffffff"
+                    });
+                    //跳转后首页删除选中状态
+                    $('#index').removeClass('active');
+                }
+
+                //点击时存储id
+                $('.HeaderList ul').find('a').on('click', function () {
+                    sessionStorage.setItem('liClick', $(this).attr('id'));
+                })
+            }
+        })
+    });
+</script>
+</body>
+
+</html>

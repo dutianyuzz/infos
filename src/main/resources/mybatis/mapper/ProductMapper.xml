@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siifi.infos.mapper.ProductMapper">
+
+<!--    <select id="listAll" resultType="com.siifi.infos.entity.Product">
+        select PRODUCT_ID,PRODUCT_NAME,UTTER,SHOU,DATE,IMAGEPATH from sys_product;
+    </select>-->
+
+    <select id="findById" resultType="com.siifi.infos.entity.Product" parameterType="int">
+        select PRODUCT_ID,PRODUCT_NAME,UTTER,SHOU,DATE,IMAGEPATH from sys_product where PRODUCT_ID=#{productId};
+    </select>
+
+    <insert id="save" parameterType="com.siifi.infos.entity.Product">
+        insert into sys_product  (PRODUCT_NAME,UTTER,SHOU,DATE,IMAGEPATH) values (#{productName},#{utter},#{shou},#{date},#{imagePath});
+        <selectKey keyProperty="productId" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="edit" parameterType="com.siifi.infos.entity.Product">
+        update sys_product
+        <set>
+            <if test="productName != null and productName != ''">
+                PRODUCT_NAME=#{productName},
+            </if>
+            <if test="utter != null and utter != ''">
+                UTTER=#{utter},
+            </if>
+            <if test="shou != null and shou != ''">
+                SHOU=#{shou},
+            </if>
+            <if test="date != null and date != ''">
+                DATE=#{date},
+            </if>
+            <if test="imagePath != null and imagePath != ''">
+                IMAGEPATH=#{imagePath},
+            </if>
+        </set>
+        where PRODUCT_ID=#{productId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from sys_product where PRODUCT_ID=#{productId};
+    </delete>
+
+</mapper>

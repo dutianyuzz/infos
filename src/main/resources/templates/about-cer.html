@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>关于集团 企业资质</title>
+    <link rel="stylesheet" href="../css/page/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/site/about-cer.css"/>
+</head>
+
+<body>
+
+<!--顶部导航 -->
+<div id="headerpage"></div>
+<!--顶部导航 over-->
+
+<div class="main">
+    <div class="NeiBanner" style="background-image: url('../images/ban1.jpg')"></div>
+    <div class="NeiNav">
+        <div class="cmain">
+            <ul id="zh">
+                <!--导航栏-->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="WfTopNav">
+    <div class="cmain">
+        <div class="txt1">企业资质</div>
+        <div class="hen"></div>
+    </div>
+</div>
+
+<div class="cmain">
+    <div class="ACMain">
+        <ul id="all">
+            <!--资质信息-->
+        </ul>
+    </div>
+    <div class="col-lg-12" align="right">
+        <ul id="mypage"></ul>
+    </div>
+</div>
+<!--底部导航-->
+<div id="footerpage"></div>
+<div class="NJMed">
+    <div class="NJMedbg"></div>
+    <div class="NJMedCon">
+        <div class="zzpre"></div>
+        <div class="zznex"></div>
+        <div class="NJMedPre">
+            <div class="zzclo"></div>
+            <dl>
+                <dt><img src="" alt=""/></dt>
+                <dd></dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<script src="../js/site/jquery-1.12.4.js"></script>
+<script src="../js/site/jquery.easing.js"></script>
+<script src="../js/site/jquery.SuperSlide.2.1.1.js"></script>
+<script src="../js/site/main.js"></script>
+<script src="../js/site/html5shiv.js"></script>
+<script src="../js/site/html5shiv.min.js"></script>
+<script src="../js/site/selectivizr.js"></script>
+<script src="../js/site/selectivizr-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<script src="../js/page/bootstrap-paginator.min.js"></script>
+
+<script>
+    $(function () {
+        /*公共部分
+         * 导航栏
+         * footer CopyRight
+         */
+        $("#headerpage").load("/infos/topNavigationBar");
+        $("#footerpage").load("/infos/bottomNavigationBar");
+        $.ajax({
+            url: '/infos/column/lists',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                var ul = '';
+                $.each(data, function (index, item) {
+                    ul += '<li>';
+                    ul += '<a href="/infos/about?id=' + item.columnId + '" id="test"><span class="span1">' + item.columnName + '</span></a>';
+                    ul += '</li>';
+                    $("#zh").html(ul);
+                });
+                var zz;
+                zz = '<a href="/infos/aboutCer"><span class="span1">企业资质</span></a>';
+                $("#zh").append('<li>' + zz + '</li>');
+                var oP = $(".NeiNav ul li");
+                $.ajax({
+                    url: '/infos/findNn',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+                        nn = (data.tid);
+                        oP[nn].classList.add("active");
+                    },
+                    error: function () {
+                        alert("请求失败");
+                    }
+                });
+                $(".NeiNav ul li").click(function () {
+                    var n = $(".NeiNav ul li").index(this);
+                    $.ajax({
+                        url: '/infos/saveNn',
+                        type: 'post',
+                        async: false,
+                        data: ({
+                            n: n
+                        }),
+                        dataType: 'json',
+                        success: function (data) {
+                        },
+                        error: function () {
+                            alert("请求失败");
+                        }
+                    });
+                });
+
+            }
+        })
+    });
+    $(function () {
+
+        pageStart();
+
+        function pageStart() {
+            $.ajax({
+                type: "get",
+                url: "/infos/honey/lists",
+                dataType: "json",
+                data: {pageNum: 1},
+                success: function (data) {
+                    appendHtml(data.list);
+                    var options = {
+                        bootstrapMajorVersion: 3,
+                        currentPage: data.pageNum,
+                        totalPages: data.pages,
+                        numberOfPages: data.pageSize,
+                        numberOfPages: 6,
+                        itemTexts: function (type, page, current) {
+                            switch (type) {
+                                case "first":
+                                    return "首页";
+                                case "prev":
+                                    return "上一页";
+                                case "next":
+                                    return "下一页";
+                                case "last":
+                                    return "末页";
+                                case "page":
+                                    return page;
+                            }
+                        },
+                        onPageClicked: function (event, originalEvent, type, page) {
+                            $("#all").html("");
+                            $.ajax({
+                                url: "/infos/honey/lists",
+                                type: "get",
+                                dataType: "json",
+                                data: {"pageNum": page},
+                                success: function (data) {
+                                    appendHtml(data.list);
+                                }
+                            });
+                        }
+                    };
+                    $('#mypage').bootstrapPaginator(options);
+                }
+            });
+        }
+
+        function appendHtml(list) {
+            for (var i = 0; i < list.length; i++) {
+                var html = '';
+                html += '<li>';
+                html += '<a href="##">';
+                html += '<dl>';
+                html += '<dt>';
+                html += '<img src=' + list[i].imagePath + ' alt=""/>'
+                html += '</dt>';
+                html += '<dd>' + list[i].honeyName;
+                html += '</dd>';
+                html += '</dl>';
+                html += '</a>';
+                html += '</li>';
+                $("#all").append(html);
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

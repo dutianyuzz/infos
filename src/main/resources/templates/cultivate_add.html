@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加目录</title>
+    <link rel="stylesheet" href="/css/columnsave.css">
+</head>
+<body>
+
+<div class="form-row">
+    <div class="field-label"><label for="field1">目录名称:</label></div>
+    <div class="field-widget"><input name="field1" id="text-a" class="required"></div>
+</div>
+<div class="form-row">
+    <div class="field-label"><label for="field3">目录说明:</label></div>
+    <div class="field-widget"><textarea class="required" id="text-b" rows="15" cols="40"></textarea></div>
+    <div class="submit-text">
+        <input type="button" id="btn" value="保存" class="btn">
+        <input type="button" id="btn-return" value="返回" class="btn">
+    </div>
+</div>
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $('#btn').click(function () {
+        var cultivateName = $("#text-a").val();
+        var shou = $("#text-b").val();
+        if (cultivateName == "") {
+            alert("信息不能为空");
+        }
+        else {
+            $.ajax({
+                url: '/infos/saveCultivate',
+                type: 'post',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    cultivateName: cultivateName,
+                    shou: shou,
+                }),
+                dataType: 'json',
+                success: function (data) {
+                    var code = (data.code);
+                    if (code == 1) {
+                        alert(data.message);
+                        window.location.href = "/infos/cultivate";
+                    }
+                },
+                error: function () {
+                    alert("请求失败");
+                }
+            });
+        }
+    })
+    $('#btn-return').click(function () {
+        window.location.href = "/infos/cultivate";
+    })
+</script>
+</body>
+</html>

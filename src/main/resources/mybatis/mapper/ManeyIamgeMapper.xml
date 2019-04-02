@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siifi.infos.mapper.ManeyImageMapper">
+
+    <select id="listAll" resultType="com.siifi.infos.entity.ManeyImage">
+        select MANEYIMAGE_ID,MANEY_ID,TID from sys_maneyimage;
+    </select>
+
+    <select id="findById" resultType="com.siifi.infos.entity.ManeyImage" parameterType="int">
+        select MANEYIMAGE_ID,MANEY_ID,TID from sys_maneyimage where MANEYIMAGE_ID=#{maneyImageId};
+    </select>
+
+    <insert id="save" parameterType="com.siifi.infos.entity.ManeyImage">
+        insert into sys_maneyimage  (MANEY_ID,TID ) values (#{maneyId},#{tid});
+        <selectKey keyProperty="maneyImageId" order="AFTER" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <!-- 批量新增-->
+    <insert id="saveRelativity" parameterType="java.util.List">
+        insert into sys_maneyimage  (MANEY_ID,TID )
+        values
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item.maneyId},#{item.tid})
+        </foreach>
+    </insert>
+
+    <update id="edit" parameterType="com.siifi.infos.entity.ManeyImage">
+        update sys_maneyimage
+        <set>
+            <if test="maneyId != null and maneyId != ''">
+                MANEY_ID=#{maneyId},
+            </if>
+            <if test="tid != null and tid != ''">
+                TID=#{tid},
+            </if>
+        </set>
+        where MANEYIMAGE_ID=#{maneyImageId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from sys_maneyimage where MANEYIMAGE_ID=#{maneyImageId};
+    </delete>
+
+</mapper>

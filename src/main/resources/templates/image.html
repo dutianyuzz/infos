@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/laydate.css" />
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/laydate.js"></script>
+</head>
+<body>
+<input type="text" id="laydateInput" placeholder="xxxx年xx月xx日"  name="date"/>
+<img src="/img/calendar.png" alt="" class="icon data-icon"/>
+<div class="select-date">
+    <div class="select-date-header">
+        <ul class="heade-ul">
+            <li class="header-item header-item-one">
+                <select name="" id="yearList"></select>
+            </li>
+            <li class="header-item header-item-two" onselectstart="return false">
+                <select name="" id="monthList"></select>
+            </li>
+            <li class="header-item header-item-three" onselectstart="return false" >
+                <span class="reback">回到今天</span>
+            </li>
+        </ul>
+    </div>
+    <div class="select-date-body">
+        <ul class="week-list">
+            <li>日</li><li>一</li><li>二</li><li>三</li><li>四</li><li>五</li><li>六</li>
+        </ul>
+        <ul class="day-tabel"></ul>
+    </div>
+</div>
+
+</body>
+</html>

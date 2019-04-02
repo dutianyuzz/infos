@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>教育培训管理</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/columnsave.css">
+</head>
+<body th:inline="text">
+<div align="center">
+    <h2>[[${cultivate.cultivateName}]]</h2>
+    <input type="hidden" th:value="${cultivate.cultivateId}" id="tid">
+</div>
+<div id="btns" align="center">
+    <code id="testcon" style="display:none;"></code>
+    <textarea id="editor" name="content" type="text/plain" style="width:1024px;height:500px;"></textarea>
+    <div>
+        <input type="button" id="btn" value="提交" class="btn">
+        <input type="button" id="btn-return" value="返回" class="btn">
+    </div>
+</div>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    var ue = UE.getEditor('editor');
+    $(function () {
+        var id = $("#tid").val();
+        $.ajax({
+            url: '/infos/findCultivates',
+            type: 'get',
+            data: ({
+                cultivateId: id,
+            }),
+            dataType: 'json',
+            success: function (data) {
+                $("#testcon").html(data.content);
+                UE.getEditor('editor').execCommand('insertHtml', $('#testcon').html());
+            }
+        })
+    });
+    $("#btn").click(function () {
+        var text = ue.getContent();
+        alert(text);
+        var tid = $("#tid").val();
+        $.ajax({
+            url: '/infos/editUeiorCultivate',
+            type: 'post',
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                tid: tid,
+                text: text,
+            }),
+            dataType: 'json',
+            success: function (data) {
+                var code = (data.code);
+                if (code == 1) {
+                    alert(data.message);
+                }
+            },
+            error: function () {
+                alert("请求失败");
+            }
+        });
+    });
+    $("#btn-return").click(function () {
+        window.location.href = "/infos/cultivate";
+    });
+</script>
+</body>
+</html>

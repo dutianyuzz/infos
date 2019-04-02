@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>智能产业 产业简介</title>
+		<link rel="stylesheet" href="../css/site/industry-intelligent.css" />
+	</head>
+
+	<body>
+
+		<!--顶部导航 -->
+		<div id="headerpage"></div>
+		<!--顶部导航 over-->
+
+		<div class="main">
+			<div class="NeiBanner" style="background-image: url('../images/ban5.png')"></div>
+			<div class="NeiNav">
+				<div class="cmain">
+					<ul id="zh">
+						<!--导航栏-->
+					</ul>
+				</div>
+			</div>
+			<div class="WfTopNav">
+
+				<div class="cmain" th:inline="text">
+					<input type="hidden" th:value="${intell.intellId}" id="tid"/>
+					<div class="txt1">智能产业/<strong style="font-size: 16px;">[[${intell.intellName}]] </strong></div>
+					<div class="txt2">SMART INDUSTRY</div>
+					<div class="hen"></div>
+				</div>
+			</div>
+			<div class="WfMainFigure">
+				<div class="cmain">
+					<div class="WfMainTxt" id="testcon">
+					</div>
+					<div class="WfMainImg"><img src="../images/nj1.jpg" alt="" /></div>
+				</div>
+			</div>
+		</div>
+
+		<!--底部导航-->
+		<div id="footerpage"></div>
+		<!--底部导航 over-->
+
+		<script src="../js/site/jquery-1.12.4.js"></script>
+		<script src="../js/site/jquery.easing.js"></script>
+		<script src="../js/site/jquery.SuperSlide.2.1.1.js"></script>
+		<script src="../js/site/main.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.min.js"> </script>
+		<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
+
+		<script>
+			$(function() {
+				/*公共部分
+				 * 导航栏
+				 * footer CopyRight
+				 */
+                $("#headerpage").load("/infos/topNavigationBar");
+                $("#footerpage").load("/infos/bottomNavigationBar");
+
+                $.ajax({
+                    url: '/infos/intell/lists',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+                        var ul='';
+                        $.each(data, function (index, item) {
+                            ul += '<li>';
+                            ul += '<a href="/infos/industryIntelligent?id='+ item.intellId +'" id="test"><span class="span1">' + item.intellName + '</span></a>';
+                            ul += '</li>';
+                            $("#zh").html(ul);
+                        });
+                        var zz;
+                        zz = '<a href="/infos/industryCase"><span class="span1">典型案例</span></a>';
+                        $("#zh").append('<li>'+ zz + '</li>');
+                        var oP = $(".NeiNav ul li");
+                        $.ajax({
+                            url: '/infos/findNna',
+                            type: 'get',
+                            dataType: 'json',
+                            success: function (data) {
+                                nn=(data.tid);
+                                oP[nn].classList.add("active");
+                            },
+                            error: function () {
+                                alert("请求失败");
+                            }
+                        });
+                        $(".NeiNav ul li").click(function() {
+                            var n = $(".NeiNav ul li").index(this);
+                            $.ajax({
+                                url: '/infos/saveNna',
+                                type: 'post',
+                                async: false,
+                                data:({
+                                    n: n
+                                }),
+                                dataType: 'json',
+                                success: function (data) {
+                                },
+                                error: function () {
+                                    alert("请求失败");
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+
+            $(function () {
+                var id = $("#tid").val();
+                $.ajax({
+                    url: '/infos/findIntells',
+                    type: 'get',
+                    data:({
+                        intellId: id,
+                    }),
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#testcon").html(data.content);
+                        UE.getEditor('editor').execCommand('insertHtml', $('#testcon').html());
+                    }
+                })
+            });
+		</script>
+	</body>
+
+</html>

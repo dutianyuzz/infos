@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>你好，vue!</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style type="text/css">
+        .blue {color: #2175bc;}
+    </style>
+</head>
+
+<body>
+<ul class="list">
+    <li v-for="(item,index) in items" @click="addClass(index)" :class="{ blue:index==current}">{{item.title}}</li>
+</ul>
+<script>
+    new Vue({
+        el:'.list',
+        data:{
+            current:0,
+            items:[
+                {title:'item1'},
+                {title:'item2'},
+                {title:'item3'},
+                {title:'item4'}
+            ]
+        },
+        methods:{
+            addClass:function(index){
+
+                this.current=index;
+                alert(index);
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siifi.infos.mapper.MediaMapper">
+
+    <select id="listAll" resultType="com.siifi.infos.entity.Media">
+        select MEDIA_ID,MEDIANAME,SHOU from sys_media;
+    </select>
+
+    <select id="findById" resultType="com.siifi.infos.entity.Media" parameterType="int">
+        select MEDIA_ID,MEDIANAME,SHOU,CONTENT from sys_media where MEDIA_ID=#{mediaId};
+    </select>
+
+    <insert id="save" parameterType="com.siifi.infos.entity.Media">
+        insert into sys_media  (MEDIANAME,SHOU) values (#{mediaName},#{shou});
+    </insert>
+
+    <update id="edit" parameterType="com.siifi.infos.entity.Media">
+        update sys_media
+        <set>
+            <if test="mediaName != null and mediaName != ''">
+                MEDIANAME=#{mediaName},
+            </if>
+            <if test="shou != null and shou != ''">
+                SHOU=#{shou},
+            </if>
+            <if test="content != null and content != ''">
+                CONTENT=#{content}
+            </if>
+        </set>
+        where MEDIA_ID=#{mediaId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from sys_media where MEDIA_ID=#{mediaId};
+    </delete>
+
+</mapper>

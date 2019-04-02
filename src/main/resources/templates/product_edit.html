@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改工程案例</title>
+    <link rel="stylesheet" href="/css/laydate.css"/>
+    <link rel="stylesheet" href="/css/columnsave.css">
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/laydate.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .select-date {
+            position: absolute;
+            left: 310px;
+            top: 140px;
+            width: 266px;
+            height: 301px;
+            border: 1px solid #58abff;
+            display: none;
+        }
+        .icon{
+            position: absolute;
+            top: 120px;
+            left: 285px;
+            height: 25px;
+            width: 25px;
+            background: #fff;
+        }
+        .all{
+            margin-top: 30px;
+            margin-left: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="all">
+    <div class="form-row" th:inline="text">
+        <input type="hidden" id="text-c" th:value="${product.productId}">
+        <div class="field-label"><label for="field1">信息标题:</label></div>
+        <div class="field-widget"><input name="field1" id="productName" class="required" th:value="${product.productName}"></div>
+    </div>
+    <div class="form-row">
+        <div class="field-label"><label for="field1">发表人:</label></div>
+        <div class="field-widget"><input name="field1" id="utter" class="required" th:value="${product.utter}"></div>
+    </div>
+    <div class="form-row">
+        <div class="field-label"><label for="field1">发布日期:</label></div>
+        <div class="field-widget"><input type="text" id="laydateInput" placeholder="xxxx年xx月xx日" name="date" class="required"></div>
+        <img src="/img/calendars.png" alt="" class="icon data-icon"/>
+        <div class="select-date">
+            <div class="select-date-header">
+                <ul class="heade-ul">
+                    <li class="header-item header-item-one">
+                        <select name="" id="yearList"></select>
+                    </li>
+                    <li class="header-item header-item-two" onselectstart="return false">
+                        <select name="" id="monthList"></select>
+                    </li>
+                    <li class="header-item header-item-three" onselectstart="return false">
+                        <span class="reback">回到今天</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="select-date-body">
+                <ul class="week-list">
+                    <li>日</li>
+                    <li>一</li>
+                    <li>二</li>
+                    <li>三</li>
+                    <li>四</li>
+                    <li>五</li>
+                    <li>六</li>
+                </ul>
+                <ul class="day-tabel"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="field-label"><label for="field1">关键字:</label></div>
+        <div class="field-widget"><input name="field1" id="shou" class="required" th:value="${product.shou}"></div>
+    </div>
+    <div class="form-row">
+        <div class="field-label"><label for="field1">上传图片:</label></div>
+        <div class="field-widget"><input id="file" type="file" name="file" class="upImg"/></div>
+        <div style="color: red">[5MB以下]</div>
+    </div>
+    <div class="form-row">
+        <div class="submit-text">
+            <input type="button" id="filePickerBtn" value="更改" class="btn" data-toggle="modal" data-target="#myModal">
+            <input type="button" value="返回" class="btn" id="btn-return">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel" style="align-content: center">
+                    是否更改工程案例
+                </h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary" id="btnOk">
+                    确认更改
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#btnOk").click(function () {
+        var productName = $("#productName").val();
+        var utter = $("#utter").val();
+        var date = $("#laydateInput").val();
+        var shou = $("#shou").val();
+        var productId=$("#text-c").val();
+        var zz = $(".upImg").val();
+        if (productName == "" || productName.length == 0 && utter == "" || utter.length == 0) {
+            alert("请填写完整信息");
+        }
+        else {
+            var imgPath = "";
+            if(zz != "" && zz.length > 0){
+                //图片上传
+                var formData = new FormData();
+                var file = $('#file')[0].files[0];
+                var imgStr = /\.(jpg|jpeg|png|bmp|BMP|JPG|PNG|JPEG)$/;
+                var imagSize = file.size;
+                alert(imagSize);
+                if(!imgStr.test(file.name)) {
+                    alert("文件必须为图片类型");
+                }
+                if(imagSize > (1024 * 1024 * 5)) {
+                    alert("图片大小超过5MB");
+                }
+                else {
+                    formData.append('file', file);
+                    $.ajax({
+                        url: '/infos/fileUpload',
+                        type: 'post',
+                        cache: false,
+                        async: false,
+                        dataType: 'json',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            var code = (data.code);
+                            if (code == 1) {
+                                imgPath = (data.imgPath);
+                            }
+                        },
+                        error: function () {
+                            alert("图片上传失败");
+                        }
+                    });
+                }
+            }
+            if(imgPath !="" && imgPath.length > 0){
+                //数据上传 改变图片
+                $.ajax({
+                    url: '/infos/editProductImage',
+                    type: 'post',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        productName: productName,
+                        utter: utter,
+                        date: date,
+                        shou: shou,
+                        imgPath: imgPath,
+                        productId: productId,
+                    }),
+                    dataType: 'json',
+                    success: function (data) {
+                        var code = (data.code);
+                        if (code == 1) {
+                            window.location.href = "/infos/productlist";
+                        }
+                    },
+                    error: function () {
+                        alert("请求失败");
+                    }
+                });
+            }
+
+            if(imgPath == "" && imgPath.length == 0) {
+                //数据上传   不改变图片
+                $.ajax({
+                    url: '/infos/editProduct',
+                    type: 'post',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        productName: productName,
+                        utter: utter,
+                        date: date,
+                        shou: shou,
+                        productId: productId,
+                    }),
+                    dataType: 'json',
+                    success: function (data) {
+                        var code = (data.code);
+                        if (code == 1) {
+                            window.location.href = "/infos/productlist";
+                        }
+                    },
+                    error: function () {
+                        alert("请求失败");
+                    }
+                });
+            }
+        }
+    });
+    $("#btn-return").click(function () {
+        window.location.href = "/infos/productlist";
+    });
+</script>
+</body>
+</html>

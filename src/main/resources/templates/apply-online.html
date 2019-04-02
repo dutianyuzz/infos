@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>招贤纳士 招聘职位 在线应聘</title>
+		<link rel="stylesheet" href="../css/site/apply-online.css" />
+	</head>
+
+	<body>
+
+		<!--顶部导航 -->
+		<div id="headerpage"></div>
+		<!--顶部导航 over-->
+
+		<div class="main">
+			<div class="NeiBanner" style="background-image: url('../images/ban1.jpg')"></div>
+			<div class="NeiNav">
+				<div class="cmain">
+					<ul>
+						<li>
+							<a href="/infos/recruitingIntroduction">
+								<span class="span1">招聘简介</span>
+								<span class="span2">RECRUITMENT BRIEF</span>
+							</a>
+						</li>
+						<li class="active">
+							<a href="/infos/recruiting-position">
+								<span class="span1">招聘职位</span>
+								<span class="span2">RECRUITMENT POSITION</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="WfTopNav">
+				<div class="cmain">
+					<div class="txt1">招贤纳士/<strong style="font-size: 16px;">招聘职位/在线应聘</strong></div>
+					<div class="txt2">CAREERS</div>
+					<div class="hen"></div>
+				</div>
+			</div>
+
+			<div class="cmain">
+				<div class="img_01">
+					<img src="../images/nj1.jpg" alt="" />
+					<img src="../images/nj1.jpg" alt="" />
+				</div>
+				<input type="hidden" id="tid" th:value="${invite.inviteId}">
+				<div class="text_01" th:inline="text">
+					<h3 style="color: #383838;">招聘职位：[[${invite.inviteName}]]</h3>
+					<div style="border-top:1px silver dashed; border-color:#383838; margin-top: 10px;"></div>
+					<div style="width: 100%; height: 100%; color: #383838; padding-top: 10px; padding-bottom: 50px;">
+						<!--内容-->
+						<div id="testcon"></div>
+						<table style="padding-top: 10px;" cellSpacing=0 cellPadding=0 width="554" height="336" border="0">
+							<tr>
+								<td colspan="2">
+									<h4>个人信息提交：</h4>
+								</td>
+							</tr>
+							<tr>
+								<td width="136">姓名：</td>
+								<td width="402" style="padding-top: 5px; padding-bottom: 5px;"><input type="text" size=10 name="column_title" class="wbk" /></td>
+							</tr>
+							<tr>
+								<td>性别：</td>
+								<td style="padding-top: 5px; padding-bottom: 5px;"><input name="sex" type="radio" id="sex" value="男" checked="checked" />男 <input type="radio" name="sex" id="sex" value="女" />女</td>
+							</tr>
+							<tr>
+								<td>学历：</td>
+								<td style="padding-top: 5px; padding-bottom: 5px;"><input name="column_xl" type="text" size="10" class="wbk" /></td>
+							</tr>
+							<tr>
+								<td>联系电话：</td>
+								<td style="padding-top: 5px; padding-bottom: 5px;"><input type="text" size=20 name="column_lxfs" class="wbk" /></td>
+							</tr>
+							<tr>
+								<td>E-mail：</td>
+								<td style="padding-top: 5px; padding-bottom: 5px;"><input name="column_hj" type="text" size="20" class="wbk" /></td>
+							</tr>
+							<tr>
+								<td>个人简历：</td>
+								<td style="padding-top: 8px; padding-bottom: 8px;"><textarea name="contant" cols="60" rows="10"></textarea></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td>
+									<input name="Submit" type="submit" style="width:160px; height:25px;" value="递交应聘简历" />
+									<input name="Submit2" type="reset" style="width:60px; height:25px;" value="重置" />
+									<input name="Submit3" type="button" style="width:60px; height:25px;" value="返回" />
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--底部导航-->
+		<div id="footerpage"></div>
+		<!--底部导航 over-->
+
+		<!--<div class="NJMed">
+			<div class="NJMedbg"></div>
+			<div class="NJMedCon">
+				<div class="zzpre"></div>
+				<div class="zznex"></div>
+				<div class="NJMedPre">
+					<div class="zzclo"></div>
+					<dl>
+						<dt><img src="" alt=""/></dt>
+						<dd></dd>
+					</dl>
+				</div>
+			</div>
+		</div>-->
+
+		<script src="../js/site/jquery-1.12.4.js"></script>
+		<script src="../js/site/jquery.easing.js"></script>
+		<script src="../js/site/jquery.SuperSlide.2.1.1.js"></script>
+		<script src="../js/site/main.js"></script>
+		<script src="../js/site/apply-online.js"></script>
+		<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.min.js"> </script>
+		<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
+
+		<script>
+			$(function() {
+				/*公共部分
+				 * 导航栏
+				 * footer CopyRight
+				 */
+                $("#headerpage").load("/infos/topNavigationBar");
+                $("#footerpage").load("/infos/bottomNavigationBar");
+			});
+
+            $(function () {
+                var id = $("#tid").val();
+                $.ajax({
+                    url: '/infos/findInviteByIds',
+                    type: 'get',
+                    data:({
+                        inviteId: id,
+                    }),
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#testcon").html(data.inviteText);
+                        UE.getEditor('editor').execCommand('insertHtml', $('#testcon').html());
+                    }
+                })
+            });
+		</script>
+	</body>
+
+</html>

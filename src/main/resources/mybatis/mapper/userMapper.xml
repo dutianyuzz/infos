@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siifi.infos.mapper.UserMapper">
+
+    <select id="findUser" resultType="com.siifi.infos.entity.User" parameterType="String">
+        SELECT USER_ID,USERNAME,PASSWORD FROM sys_user where USERNAME=#{userName }
+    </select>
+
+    <update id="edit" parameterType="com.siifi.infos.entity.User">
+    update sys_user
+    <set>
+        <if test="passWord != null and passWord != ''">
+            PASSWORD=#{passWord}
+        </if>
+    </set>
+    where USERNAME=#{userName}
+</update>
+
+</mapper>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>职位管理</title>
+    <link rel="stylesheet" href="../css/layui.css"/>
+    <link rel="stylesheet" href="../css/stylelist.css"/>
+    <link rel="stylesheet" href="../css/page/bootstrap.min.css"/>
+</head>
+<body>
+<table class="tftable" id='tabletest'>
+</table>
+<div class="col-lg-12" align="right">
+    <ul id="mypage"></ul>
+</div>
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<script src="../js/page/bootstrap-paginator.min.js"></script>
+<script>
+    $(function() {
+
+        pageStart();
+
+        function pageStart() {
+            $.ajax({
+                type : "get",
+                url : "/infos/invite/lists",
+                dataType : "json",
+                data : {pageNum : 1},
+                success : function(data) {
+                    appendHtml(data.list);
+                    var options = {
+                        bootstrapMajorVersion : 3, //如果是bootstrap3版本需要加此标识，并且设置包含分页内容的DOM元素为UL,如果是bootstrap2版本，则DOM包含元素是DIV
+                        currentPage : data.pageNum, //当前页数
+                        totalPages : data.pages, //总页数
+                        numberOfPages : data.pageSize,//每页记录数
+                        numberOfPages:10,    //最多显示Page页
+                        itemTexts : function(type, page, current) {
+                            switch (type) {
+                                case "first":
+                                    return "首页";
+                                case "prev":
+                                    return "上一页";
+                                case "next":
+                                    return "下一页";
+                                case "last":
+                                    return "末页";
+                                case "page":
+                                    return page;
+                            }
+                        },
+                        onPageClicked : function(event, originalEvent, type, page) {
+                            $("#tabletest").html("");
+                            $.ajax({
+                                url : "/infos/invite/lists",
+                                type : "get",
+                                dataType : "json",
+                                data : {"pageNum" : page},
+                                success : function(data) {
+                                    appendHtml(data.list);
+                                }
+                            });
+                        }
+                    };
+                    $('#mypage').bootstrapPaginator(options);
+                }
+            });
+        }
+        function appendHtml(list) {
+            var bt;
+            bt='<th>' +'编号'+'</th>' +
+                '<th>' +'职位名称'+'</th>' +
+                '<th>' +'发布人'+'</th>' +
+                '<th>' +'更新时间'+'</th>' +
+                '<th>' +'相关操作'+'</th>' ;
+            $("#tabletest").append('<tr>' + bt + '</tr>')
+            for (var i = 0; i < list.length; i++) {
+                var id=list[i].inviteId;
+                var tr;
+                tr = '<td>' + id + '</td>' + '<td>' + list[i].inviteName + '</td>'+ '<td>' +list[i].personName + '</td>'+'<td>'+ list[i].date + '</td>' +
+                    '<td><a href="/infos/findInviteById?id='+ id +'" class="layui-btn layui-btn-mini">修改</a><a href="/infos/deleteInvite?id='+ id +'" class="layui-btn layui-btn-danger layui-btn-mini">删除</a> </td>';
+                $("#tabletest").append('<tr>' + tr + '</tr>')
+            }
+        }
+    });
+</script>
+</body>
+</html>

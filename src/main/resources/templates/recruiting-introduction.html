@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>招贤纳士 招聘简介</title>
+		<link rel="stylesheet" href="../css/site/recruiting-introduction.css" />
+	</head>
+
+	<body>
+
+		<!--顶部导航 -->
+		<div id="headerpage"></div>
+		<!--顶部导航 over-->
+
+		<div class="main">
+			<div class="NeiBanner" style="background-image: url('../images/ban1.jpg')"></div>
+			<div class="NeiNav">
+				<div class="cmain">
+					<ul>
+						<li class="active">
+							<a href="/infos/recruitingIntroduction">
+								<span class="span1">招聘简介</span>
+								<span class="span2">RECRUITMENT BRIEF</span>
+							</a>
+						</li>
+						<li>
+							<a href="/infos/recruitingPosition">
+								<span class="span1">招聘职位</span>
+								<span class="span2">RECRUITMENT POSITION</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="WfTopNav">
+				<div class="cmain">
+					<div class="txt1">招贤纳士/<strong style="font-size: 16px;">招聘简介</strong></div>
+					<div class="txt2">CAREERS</div>
+					<div class="hen"></div>
+				</div>
+			</div>
+			<div class="WfMainFigure">
+				<div class="cmain">
+					<div class="WfMainTxt" id="testcon">
+					</div>
+					<div class="WfMainImg"><img src="../images/nj1.jpg" alt="" /></div>
+				</div>
+			</div>
+		</div>
+
+		<!--底部导航-->
+		<div id="footerpage"></div>
+		<!--底部导航 over-->
+
+		<script src="../js/site/jquery-1.12.4.js"></script>
+		<script src="../js/site/jquery.easing.js"></script>
+		<script src="../js/site/jquery.SuperSlide.2.1.1.js"></script>
+		<script src="../js/site/main.js"></script>
+
+		<script>
+			$(function() {
+				/*公共部分
+				 * 导航栏
+				 * footer CopyRight
+				 */
+                $("#headerpage").load("/infos/topNavigationBar");
+                $("#footerpage").load("/infos/bottomNavigationBar");
+			});
+
+            $(function () {
+                $.ajax({
+                    url: '/infos/findJobByIds',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#testcon").html(data.content);
+                        UE.getEditor('editor').execCommand('insertHtml', $('#testcon').html());
+                    }
+                })
+            });
+		</script>
+	</body>
+
+</html>

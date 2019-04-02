@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siifi.infos.mapper.IntellMapper">
+
+    <select id="listAll" resultType="com.siifi.infos.entity.Intell">
+        select INTELL_ID,INTELL_NAME,SHOU from sys_intell;
+    </select>
+
+    <select id="findById" resultType="com.siifi.infos.entity.Intell" parameterType="int">
+        select INTELL_ID,INTELL_NAME,SHOU,CONTENT from sys_intell where INTELL_ID=#{intellId};
+    </select>
+
+    <insert id="save" parameterType="com.siifi.infos.entity.Intell">
+        insert into sys_intell  (INTELL_NAME,SHOU) values (#{intellName},#{shou});
+    </insert>
+
+    <update id="edit" parameterType="com.siifi.infos.entity.Intell">
+        update sys_intell
+        <set>
+            <if test="intellName != null and intellName != ''">
+                INTELL_NAME=#{intellName},
+            </if>
+            <if test="shou != null and shou != ''">
+                SHOU=#{shou},
+            </if>
+            <if test="content != null and content != ''">
+                CONTENT=#{content}
+            </if>
+        </set>
+        where INTELL_ID=#{intellId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from sys_intell where INTELL_ID=#{intellId};
+    </delete>
+
+</mapper>

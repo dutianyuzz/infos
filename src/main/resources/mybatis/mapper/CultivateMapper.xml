@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siifi.infos.mapper.CultivateMapper">
+
+    <select id="listAll" resultType="com.siifi.infos.entity.Cultivate">
+        select CULTIVATE_ID,CULTIVATE_NAME,SHOU from sys_cultivate;
+    </select>
+
+    <select id="findById" resultType="com.siifi.infos.entity.Cultivate" parameterType="int">
+        select CULTIVATE_ID,CULTIVATE_NAME,SHOU,CONTENT from sys_cultivate where CULTIVATE_ID=#{cultivateId};
+    </select>
+
+    <insert id="save" parameterType="com.siifi.infos.entity.Cultivate">
+        insert into sys_cultivate  (CULTIVATE_NAME,SHOU) values (#{cultivateName},#{shou});
+    </insert>
+
+    <update id="edit" parameterType="com.siifi.infos.entity.Cultivate">
+        update sys_cultivate
+        <set>
+            <if test="cultivateName != null and cultivateName != ''">
+                CULTIVATE_NAME=#{cultivateName},
+            </if>
+            <if test="shou != null and shou != ''">
+                SHOU=#{shou},
+            </if>
+            <if test="content != null and content != ''">
+                CONTENT=#{content}
+            </if>
+        </set>
+        where CULTIVATE_ID=#{cultivateId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from sys_cultivate where CULTIVATE_ID=#{cultivateId};
+    </delete>
+
+</mapper>

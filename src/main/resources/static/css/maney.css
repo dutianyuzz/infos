@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.form-row {
+    clear: both;
+    float:left;
+    padding:5px 5px 5px 5px;
+}
+.field-label {
+    width:90px;
+    float:left;
+    line-height:25px;
+}
+.field-widget {
+    float:left;
+}
+input.required{
+    width:300px;
+    height:22px;
+    border: 1px solid #95E0EF;
+    background-color:#f3fcfe;
+    border-left-width:2px;
+    padding:5px 0 0 2px;
+    float:left;
+}
+#upBox {
+    width: 100%;
+    padding: 20px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 200px;
+    position: relative;
+    border-radius: 10px;
+}
+
+#inputBox {
+    width: 100px;
+    margin-left: 4%;
+    height: 40px;
+    border: 1px solid #009688;
+    background-color: #009688;
+    color: #fff;
+    border-radius: 20px;
+    position: relative;
+    text-align: center;
+    line-height: 40px;
+    overflow: hidden;
+    font-size: 15px;
+}
+
+#inputBox input {
+    width: 100px;
+    height: 30px;
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: -14%;
+}
+
+#imgBox {
+    text-align: left;
+}
+
+.imgContainer {
+    display: inline-block;
+    width: 17%;
+    height: 150px;
+    margin-left: 1%;
+    border: 1px solid #666666;
+    position: relative;
+    margin-top: 30px;
+    box-sizing: border-box;
+}
+
+.imgContainer img {
+    width: 100%;
+    height: 150px;
+    cursor: pointer;
+}
+
+.imgContainer p {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: black;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: none;
+}
+
+.imgContainer:hover p {
+    display: block;
+}
+
+#btn {
+    display: inline-block;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 18px;
+    background-color: #009688;
+    color: #fff;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 14px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    opacity: .9;
+    filter: alpha(opacity=90);
+}

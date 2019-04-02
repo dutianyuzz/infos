@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siifi.infos.mapper.ZoologyMapper">
+
+    <select id="listAll" resultType="com.siifi.infos.entity.Zoology">
+        select ZOOLOGY_ID,ZOOLOGY_NAME,SHOU from sys_zoology;
+    </select>
+
+    <select id="findById" resultType="com.siifi.infos.entity.Zoology" parameterType="int">
+        select ZOOLOGY_ID,ZOOLOGY_NAME,SHOU,CONTENT from sys_zoology where ZOOLOGY_ID=#{zoologyId};
+    </select>
+
+    <insert id="save" parameterType="com.siifi.infos.entity.Zoology">
+        insert into sys_zoology  (ZOOLOGY_NAME,SHOU) values (#{zoologyName},#{shou});
+    </insert>
+
+    <update id="edit" parameterType="com.siifi.infos.entity.Zoology">
+        update sys_zoology
+        <set>
+            <if test="zoologyName != null and zoologyName != ''">
+                ZOOLOGY_NAME=#{zoologyName},
+            </if>
+            <if test="shou != null and shou != ''">
+                SHOU=#{shou},
+            </if>
+            <if test="content != null and content != ''">
+                CONTENT=#{content}
+            </if>
+        </set>
+        where ZOOLOGY_ID=#{zoologyId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from sys_zoology where ZOOLOGY_ID=#{zoologyId};
+    </delete>
+
+</mapper>

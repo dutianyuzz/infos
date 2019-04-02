@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能产业</title>
+    <link rel="stylesheet" href="/css/layui.css"/>
+    <link rel="stylesheet" href="/css/stylelist.css"/>
+</head>
+<body>
+<form method="post" action="/infos/intelladd">
+    <input type="submit" value="添加目录"
+           style="background: #729EA5;height: 30px;border-width: 0px;font-size: 12px;color: white ;width: 60px;">
+</form>
+<table class="tftable" id='tabletest'>
+    <tr>
+        <th>目录编号</th>
+        <th>目录名称</th>
+        <th>内容管理</th>
+        <th>相关操作</th>
+    </tr>
+</table>
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: '/infos/intell/lists',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    var tr;
+                    var id = item.intellId;
+                    var tid = index + 1;
+                    tr = '<td>' + tid + '</td>' + '<td>' + item.intellName + '</td>' + '<td id="tr_text"><a href="/infos/findUeiorIntell?id=' + id + '" class="layui-btn layui-btn-normal layui-btn-mini">编辑栏目内容</a> ' +
+                        '</td>' + '<td><a href="/infos/findIntell?id=' + id + '" class="layui-btn layui-btn-mini">修改</a><a href="/infos/deleteIntell?id=' + id + '" class="layui-btn layui-btn-danger layui-btn-mini">删除</a> </td>';
+                    $("#tabletest").append('<tr>' + tr + '</tr>')
+                })
+            }
+        })
+    });
+</script>
+</body>
+</html>

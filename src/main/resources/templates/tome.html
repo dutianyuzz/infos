@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>联系我们</title>
+		<link rel="stylesheet" href="../css/site/main.css" />
+	</head>
+
+	<body>
+
+		<!--顶部导航 -->
+		<div id="headerpage"></div>
+		<!--顶部导航 over-->
+
+		<div class="main">
+			<div class="NeiBanner" style="background-image: url('../images/ban4.jpg')"></div>
+			<div class="NeiNav">
+				<div class="cmain">
+					<ul>
+						<li class="active">
+							<a href="##">
+								<span class="span1">联系方式</span>
+								<span class="span2">CONTACT WAY</span>
+							</a>
+						</li>
+						<!--<li>
+							<a href="##">
+								<span class="span1">留言板</span>
+								<span class="span2">MESSAGE BOARD</span>
+							</a>
+						</li>-->
+					</ul>
+				</div>
+			</div>
+			<div class="Address">
+				<div class="cmain">
+					<ul>
+						<li>
+							<dl>
+								<dt class="m1">
+              <em>地址 / ADDRESS</em>
+            </dt>
+								<dd>
+									<span class="span1">北京市北京经济技术开发区宏达北路7号2幢四层</span>
+									<span class="span2">
+                		Four Floors of Building 7, Hongda North Road, Beijing Economic and Technological Development Zone.
+              		</span>
+								</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="m2">
+              <em>电话 / TEL</em>
+            </dt>
+								<dd>
+									<span class="span1">（86）10 — 6783 7666</span>
+								</dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt class="m3">
+              <em>邮编 / ZIP</em>
+            </dt>
+								<dd>
+									<span class="span1">（999001）100176</span>
+								</dd>
+							</dl>
+						</li>
+						<li style="margin-right: 0">
+							<dl>
+								<dt class="m4">
+              <em>邮箱 / MAIL</em>
+            </dt>
+								<dd>
+									<span class="span1">service@siifi.cn</span>
+								</dd>
+							</dl>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="Map">
+				<iframe height="600" src="https://apis.map.qq.com/tools/poimarker?type=0&amp;marker=coord:39.802110,116.505600;
+					title:中网国金集团有限公司;addr:北京市北京经济技术开发区宏达北路7号2幢四层&amp;
+					key=TFRBZ-UP63Q-QPR5S-GKERD-2VQK2-2IFDU&amp;referer=myapp" frameborder="0" width="100%">
+    		</iframe>
+			</div>
+			<div class="ToMeForm">
+				<div class="ToMeMain">
+					<form>
+						<div class="TMLebelMain">
+							<div class="TMLebel lf">
+								<label>
+              <input type="text" name="TMName" class="TMName" placeholder="姓名"/>
+            </label>
+							</div>
+							<div class="TMLebel rt">
+								<label>
+              <input type="text" name="TMTels" class="TMTels" placeholder="电话"/>
+            </label>
+							</div>
+						</div>
+						<div class="TMLebel">
+							<label>
+            <textarea name="TMText" id="TMText" class="TMText" placeholder="留言"></textarea>
+          </label>
+						</div>
+						<button type="button" class="TMBtns">提交</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!--底部导航-->
+		<div id="footerpage"></div>
+		<!--底部导航 over-->
+
+		<script src="../js/site/jquery-1.12.4.js"></script>
+		<script src="../js/site/jquery.easing.js"></script>
+		<script src="../js/site/jquery.SuperSlide.2.1.1.js"></script>
+		<script src="../js/site/main.js"></script>
+
+		<script>
+			$(function() {
+				/*公共部分
+				 * 导航栏
+				 * footer CopyRight
+				 */
+                $("#headerpage").load("/infos/topNavigationBar");
+                $("#footerpage").load("/infos/bottomNavigationBar");
+			});
+		</script>
+	</body>
+
+</html>

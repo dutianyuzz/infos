@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.siifi.infos.mapper.TidMapper">
+
+<select id="findById" resultType="com.siifi.infos.entity.Tid" parameterType="int">
+    select ID,TID from sys_tid where ID=#{id};
+</select>
+
+    <update id="edit" parameterType="com.siifi.infos.entity.Tid">
+        update sys_tid
+        <set>
+            <if test="tid != null and tid != ''">
+                TID=#{tid},
+            </if>
+        </set>
+        where ID=#{id}
+    </update>
+</mapper>

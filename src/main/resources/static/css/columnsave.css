@@ -1,0 +1,41 @@
+.form-row {
+    clear: both;
+    float:left;
+    padding:5px 5px 5px 5px;
+}
+.field-label {
+    width:90px;
+    float:left;
+    line-height:25px;
+}
+.field-widget {
+    float:left;
+}
+input.required{
+    width:300px;
+    height:22px;
+    border: 1px solid #95E0EF;
+    background-color:#f3fcfe;
+    border-left-width:2px;
+    padding:5px 0 0 2px;
+    float:left;
+}
+input.btn {
+     display: inline-block;
+     height: 38px;
+     line-height: 38px;
+     padding: 0 18px;
+     background-color: #009688;
+     color: #fff;
+     white-space: nowrap;
+     text-align: center;
+     font-size: 14px;
+     border: none;
+     border-radius: 2px;
+     cursor: pointer;
+     opacity: .9;
+     filter: alpha(opacity=90);
+ }
+.submit-text{
+    padding-left:90px;
+}

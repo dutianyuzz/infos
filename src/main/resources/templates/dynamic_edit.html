@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>修改新闻</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/laydate.css"/>
+    <link rel="stylesheet" href="/css/columnsave.css">
+    <style type="text/css">
+        .select-date {
+            position: absolute;
+            left: 310px;
+            top: 140px;
+            width: 266px;
+            height: 301px;
+            border: 1px solid #58abff;
+            display: none;
+            z-index: 20001; /*日历弹出框覆盖其他效果 */
+            background: beige;
+        }
+
+        .icon {
+            position: absolute;
+            top: 120px;
+            left: 285px;
+            height: 25px;
+            width: 25px;
+            background: #fff;
+        }
+
+        .all {
+            margin-top: 30px;
+            margin-left: 30px;
+        }
+
+        .text-area {
+            margin-top: 10px;
+            margin-left: 90px;
+        }
+
+        .btn {
+            margin-top: 20px;
+            margin-left: 90px;
+        }
+        .btnReturn {
+            display: inline-block;
+            height: 38px;
+            line-height: 38px;
+            padding: 0 18px;
+            background-color: #009688;
+            color: #fff;
+            white-space: nowrap;
+            text-align: center;
+            font-size: 14px;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            opacity: .9;
+            filter: alpha(opacity=90);
+            margin-top: 20px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body th:inline="text">
+<div class="all">
+    <div class="form-row">
+        <input type="hidden" id="tid" th:value="${dynamic.dynamicId}">
+        <div class="field-label"><label for="field1">新闻标题:</label></div>
+        <div class="field-widget"><input name="field1" id="dynamicName" class="required" th:value="${dynamic.dynamicName}">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="field-label"><label for="field1">发表人:</label></div>
+        <div class="field-widget"><input name="field1" id="personName" class="required" th:value="${dynamic.personName}">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="field-label"><label for="field1">发布日期:</label></div>
+        <div class="field-widget"><input type="text" id="laydateInput" placeholder="xxxx年xx月xx日" name="date"
+                                         class="required"></div>
+        <img src="/img/calendars.png" alt="" class="icon data-icon"/>
+        <div class="select-date">
+            <div class="select-date-header">
+                <ul class="heade-ul">
+                    <li class="header-item header-item-one">
+                        <select name="" id="yearList"></select>
+                    </li>
+                    <li class="header-item header-item-two" onselectstart="return false">
+                        <select name="" id="monthList"></select>
+                    </li>
+                    <li class="header-item header-item-three" onselectstart="return false">
+                        <span class="reback">回到今天</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="select-date-body">
+                <ul class="week-list">
+                    <li>日</li>
+                    <li>一</li>
+                    <li>二</li>
+                    <li>三</li>
+                    <li>四</li>
+                    <li>五</li>
+                    <li>六</li>
+                </ul>
+                <ul class="day-tabel"></ul>
+            </div>
+        </div>
+    </div>
+    <div id="btns" class="form-row">
+        <code id="testcon" style="display:none;"></code>
+        <textarea id="editor" name="content" type="text/plain" style="width:1024px;height:500px;"
+                  class="text-area"></textarea>
+        <input type="button" id="btn" value="修改" class="btn">
+        <input type="button" id="btn-return" value="返回" class="btnReturn">
+    </div>
+</div>
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/laydate.js"></script>
+<script type="text/javascript">
+    var ue = UE.getEditor('editor');
+    $(function () {
+        var id = $("#tid").val();
+        $.ajax({
+            url: '/infos/findDynamicByIds',
+            type: 'get',
+            data: ({
+                dynamicId: id,
+            }),
+            dataType: 'json',
+            success: function (data) {
+                $("#testcon").html(data.content);
+                UE.getEditor('editor').execCommand('insertHtml', $('#testcon').html());
+            }
+        })
+    });
+    $("#btn").click(function () {
+        var contentText = ue.getContent();
+        var dynamicId = $("#tid").val();
+        var dynamicName = $("#dynamicName").val();
+        var personName = $("#personName").val();
+        var date = $("#laydateInput").val();
+        $.ajax({
+            url: '/infos/editDynamic',
+            type: 'post',
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                dynamicId: dynamicId,
+                dynamicName: dynamicName,
+                personName: personName,
+                date: date,
+                contentText: contentText,
+            }),
+            dataType: 'json',
+            success: function (data) {
+                var code = (data.code);
+                if (code == 1) {
+                    alert(data.message);
+                    window.location.href = "/infos/dynamicList";
+                }
+                if (code == 0) {
+                    alert(data.message);
+                }
+            },
+            error: function () {
+                alert("请求失败");
+            }
+        });
+    });
+    $("#btn-return").click(function () {
+        window.location.href = "/infos/dynamicList";
+    });
+</script>
+</body>
+</html>
