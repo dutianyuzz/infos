@@ -70,6 +70,7 @@ public class Test {
 /*        ops.set("name", "张三");*/
         String name = ops.get("name");
         System.out.println(name);
+        System.out.println("测试以下");
         System.out.println(redisTemplate.hasKey("name"));
     }
     @org.junit.Test
