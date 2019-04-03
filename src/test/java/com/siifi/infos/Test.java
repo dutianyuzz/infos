@@ -71,6 +71,7 @@ public class Test {
         String name = ops.get("name");
         System.out.println(name);
         System.out.println("测试以下");
+        System.out.println("协同开发测试");
         System.out.println(redisTemplate.hasKey("name"));
     }
     @org.junit.Test
