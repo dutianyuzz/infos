@@ -1,4 +1,6 @@
-package com.siifi.infos.controller;
+package com.siifi.infos.main;
+
+import com.siifi.infos.controller.WebServiceImpl;
 
 import javax.xml.ws.Endpoint;
 

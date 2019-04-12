@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>搜索引擎</title>
+    <link rel="stylesheet" href="../css/page/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/site/about-cer.css"/>
+    <style>
+        div.searchTest {
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        .svs {
+            position: relative;
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        input, button {
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 100%;
+            height: 42px;
+            padding-left: 13px;
+        }
+
+        button {
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        /*搜索框6*/
+        .test {
+            width: 100%;
+            height: 100px;
+            text-align: center;
+        }
+
+        .bar6 {
+            background: white;
+        }
+
+        .bar6 input {
+            border: 2px solid #00b7ee;
+            border-radius: 5px;
+            background: transparent;
+            top: 0;
+            right: 0;
+        }
+
+        .bar6 button {
+            background: #00b7ee;
+            border-radius: 0 5px 5px 0;
+            width: 60px;
+            top: 0;
+            right: 0;
+        }
+
+        .bar6 button:before {
+            content: "搜索";
+            font-size: 13px;
+            color: #F9F0DA;
+        }
+    </style>
+</head>
+
+<body>
+<div class="test">
+    <div class="searchTest bar6">
+        <div class="svs">
+            <input type="text" placeholder="请输入您要搜索的内容..." id="searchText">
+            <button type="submit" id="btn"></button>
+        </div>
+    </div>
+</div>
+
+
+<div class="WfTopNav">
+    <div class="cmain">
+        <div class="txt1">搜索结果</div>
+        <div class="hen"></div>
+    </div>
+</div>
+
+<div class="cmain">
+    <div class="ACMain">
+        <ul id="all">
+            <!--搜索结果-->
+        </ul>
+    </div>
+    <!--分页栏-->
+    <div class="col-lg-12" align="right">
+        <ul id="mypage"></ul>
+    </div>
+</div>
+<script src="../js/site/jquery-1.12.4.js"></script>
+<script src="../js/site/jquery.easing.js"></script>
+<script src="../js/site/jquery.SuperSlide.2.1.1.js"></script>
+<script src="../js/site/main.js"></script>
+<script src="../js/site/html5shiv.js"></script>
+<script src="../js/site/html5shiv.min.js"></script>
+<script src="../js/site/selectivizr.js"></script>
+<script src="../js/site/selectivizr-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+            $('#btn').click(function () {
+                var name = $("#searchText").val();
+                $.ajax({
+                    type: "get",
+                    url: "/infos/search",
+                    dataType: "json",
+                    data: {name: name},
+                    success: function (data) {
+                        var html = '';
+                        $.each(data, function (index, item) {
+                            html += '<li>';
+                            html += '<a href="##">';
+                            html += '<dl>';
+                            html += '<dt>';
+                            html += '<img src=' + item.imagePath + ' alt=""/>'
+                            html += '</dt>';
+                            html += '<dd>' + item.productName;
+                            html += '</dd>';
+                            html += '</dl>';
+                            html += '</a>';
+                            html += '</li>';
+                            $("#all").html(html);
+                        })
+                    }
+                })
+            });
+
+/*    $(function () {
+        pageStart();
+        function pageStart(){
+            $('#btn').click(function () {
+                var name = $("#searchText").val();
+            $.ajax({
+                type: "get",
+                url: "/infos/search",
+                dataType: "json",
+                data: {pageNum: 0,pageSize:3,name: name},
+                success: function (data) {
+                    appendHtml(data.list);
+                    var options = {
+                        bootstrapMajorVersion: 3,
+                        currentPage: data.pageNum,
+                        totalPages: data.pages,
+                        numberOfPages: data.pageSize,
+                        numberOfPages: 3,
+                        itemTexts: function (type, page, current) {
+                            switch (type) {
+                                case "first":
+                                    return "首页";
+                                case "prev":
+                                    return "上一页";
+                                case "next":
+                                    return "下一页";
+                                case "last":
+                                    return "末页";
+                                case "page":
+                                    return page;
+                            }
+                        },
+                        onPageClicked: function (event, originalEvent, type, page) {
+                            $("#all").html("");
+                            $.ajax({
+                                url: "/infos/search",
+                                type: "get",
+                                dataType: "json",
+                                data: {"pageNum": page},
+                                success: function (data) {
+                                    appendHtml(data.list);
+                                }
+                            });
+                        }
+                    };
+                    $('#mypage').bootstrapPaginator(options);
+                }
+            });
+            });
+        }
+        function appendHtml(list) {
+            var html = '';
+            for (var i = 0; i < list.length; i++) {
+                html += '<li>';
+                html += '<a href="##">';
+                html += '<dl>';
+                html += '<dt>';
+                html += '<img src=' + list[i].imagePath + ' alt=""/>'
+                html += '</dt>';
+                html += '<dd>' + list[i].productName;
+                html += '</dd>';
+                html += '</dl>';
+                html += '</a>';
+                html += '</li>';
+                $("#all").append(html);
+            }
+        }
+    });*/
+</script>
+</body>
+
+</html>
