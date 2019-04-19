@@ -30,8 +30,6 @@ public class SiteController {
     private CultivateService cultivateService;
     @Resource
     private InviteService inviteService;
-    @Resource
-    private TidService tidService;
 
     /**
      * 首页
@@ -40,7 +38,7 @@ public class SiteController {
      */
     @RequestMapping("/siifi.html")
     public String index() {
-        return "siifi";
+        return "/siifi/siifi";
     }
 
     /**
@@ -50,20 +48,12 @@ public class SiteController {
      */
     @RequestMapping("/login.html")
     public String login() {
-        return "login";
+        return "/siifi/login";
     }
 
     @RequestMapping("/register.html")
     public String register() {
-        return "register";
-    }
-
-    /**
-     * @return
-     */
-    @RequestMapping("/text")
-    public String text() {
-        return "text";
+        return "/siifi/register";
     }
 
     /**
@@ -86,7 +76,7 @@ public class SiteController {
         box.setZoologyId(zoologyId);
         box.setMediaId(mediaId);
         box.setCultivateId(cultivateId);
-        ModelAndView model = new ModelAndView("top-navigation-bar");
+        ModelAndView model = new ModelAndView("/siifi/top-navigation-bar");
         model.addObject("box", box);
         return model;
     }
@@ -111,7 +101,7 @@ public class SiteController {
         box.setZoologyId(zoologyId);
         box.setMediaId(mediaId);
         box.setCultivateId(cultivateId);
-        ModelAndView model = new ModelAndView("bottom-navigation-bar");
+        ModelAndView model = new ModelAndView("/siifi/bottom-navigation-bar");
         model.addObject("box", box);
         return model;
     }
@@ -123,7 +113,7 @@ public class SiteController {
      */
     @RequestMapping("/contactInformation")
     public String ContactInformation() {
-        return "contact-information";
+        return "/siifi/contact-information";
     }
 
 
@@ -136,7 +126,7 @@ public class SiteController {
     @RequestMapping("/generalDetailsPage")
     public ModelAndView findColumn(Integer id) {
         Column column = columnService.getColumnById(id);
-        ModelAndView model = new ModelAndView("general-details-page");
+        ModelAndView model = new ModelAndView("/siifi/general-details-page");
         model.addObject("column", column);
         return model;
     }
@@ -148,7 +138,7 @@ public class SiteController {
      */
     @RequestMapping("/enterpriseQualification")
     public String aboutCer() {
-        return "enterprise-qualification";
+        return "/siifi/enterprise-qualification";
     }
 
     /**
@@ -159,7 +149,7 @@ public class SiteController {
     @RequestMapping("/intelligentIndustry")
     public ModelAndView findIntell(Integer id) {
         Intell intell = intellService.getIntellById(id);
-        ModelAndView model = new ModelAndView("intelligent-industry");
+        ModelAndView model = new ModelAndView("/siifi/intelligent-industry");
         model.addObject("intell", intell);
         return model;
     }
@@ -171,7 +161,7 @@ public class SiteController {
      */
     @RequestMapping("/intelligentClassicCase")
     public String industryCase() {
-        return "intelligent-classic-case";
+        return "/siifi/intelligent-classic-case";
     }
 
     /**
@@ -182,7 +172,7 @@ public class SiteController {
     @RequestMapping("/industryEcology")
     public ModelAndView industryEcology(Integer id) {
         Zoology zoology = zoologyService.getZoologyById(id);
-        ModelAndView model = new ModelAndView("industry-ecology");
+        ModelAndView model = new ModelAndView("/siifi/industry-ecology");
         model.addObject("zoology", zoology);
         return model;
     }
@@ -195,7 +185,7 @@ public class SiteController {
     @RequestMapping("/industryMedia")
     public ModelAndView industryMedia(Integer id) {
         Media media = mediaService.getMediaById(id);
-        ModelAndView model = new ModelAndView("industry-media");
+        ModelAndView model = new ModelAndView("/siifi/industry-media");
         model.addObject("media", media);
         return model;
     }
@@ -208,7 +198,7 @@ public class SiteController {
     @RequestMapping("/industryEducation")
     public ModelAndView industryEducation(Integer id) {
         Cultivate cultivate = cultivateService.getCultivateById(id);
-        ModelAndView model = new ModelAndView("industry-education");
+        ModelAndView model = new ModelAndView("/siifi/industry-education");
         model.addObject("cultivate", cultivate);
         return model;
     }
@@ -220,7 +210,7 @@ public class SiteController {
      */
     @RequestMapping("/responsibilityHonest")
     public String responsibilityHonest() {
-        return "responsibility-honest";
+        return "/siifi/responsibility-honest";
     }
 
     /**
@@ -230,7 +220,7 @@ public class SiteController {
      */
     @RequestMapping("/responsibilityBlacklist")
     public String responsibilityBlacklist() {
-        return "responsibility-blacklist";
+        return "/siifi/responsibility-blacklist";
     }
 
     /**
@@ -240,7 +230,7 @@ public class SiteController {
      */
     @RequestMapping("/contact")
     public String contact() {
-        return "contact";
+        return "/siifi/contact";
     }
 
     /**
@@ -250,7 +240,7 @@ public class SiteController {
      */
     @RequestMapping("/recruitingIntroduction")
     public String recruitingIntroduction() {
-        return "recruiting-introduction";
+        return "/siifi/recruiting-introduction";
     }
 
     /**
@@ -260,7 +250,7 @@ public class SiteController {
      */
     @RequestMapping("/recruitingPosition")
     public String recruitingPosition() {
-        return "recruiting-position";
+        return "/siifi/recruiting-position";
     }
 
     /**
@@ -272,7 +262,7 @@ public class SiteController {
     public ModelAndView applyOnline(Integer id) {
         System.out.println(id);
         Invite invite = inviteService.getInviteById(id);
-        ModelAndView model = new ModelAndView("recruit-details");
+        ModelAndView model = new ModelAndView("/siifi/recruit-details");
         model.addObject("invite", invite);
         return model;
     }
