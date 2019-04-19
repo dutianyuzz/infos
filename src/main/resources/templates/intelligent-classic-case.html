@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>产品中心-智能产业</title>
+    <link rel="stylesheet" href="../css/siifi/amazeui.css"/>
+    <link rel="stylesheet" href="../css/siifi/common.min.css"/>
+    <link rel="stylesheet" href="../css/page/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/siifi/intelligent-classic-case.css"/>
+    <style>
+        .solution-page {
+            background: url(../images/siifi/solution/solution-banner.png);
+            color: #fff;
+            padding: 110px 0 160px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="layout">
+
+    <!--顶部导航 -->
+    <div class="headerpage"></div>
+    <!--顶部导航 over-->
+
+    <!--===========layout-container================-->
+    <div class="layout-container">
+        <div class="solution-page">
+            <div class="container" style="text-align: center">
+                <h2>典型案例</h2>
+                <p></p>
+            </div>
+        </div>
+    </div>
+
+        <div class="breadcrumb-box">
+            <div class="NeiNav">
+                <div class="cmain">
+                    <ul id="zh">
+                        <!--导航-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="example-container">
+            <div class="am-tabs" data-am-tabs>
+                <ul class="am-tabs-nav am-nav am-nav-tabs am-g">
+                    <li class="am-active am-u-md-2">
+                        <a href="#tab-4-1"><i class="am-icon-map-o"></i>典型案例</a>
+                    </li>
+                </ul>
+
+                <div class="am-tabs-bd am-tabs-bd-ofv">
+                    <div class="am-tab-panel am-active" id="tab-4-1">
+                        <div id="all">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--分页-->
+    <div class="col-lg-12" align="right">
+        <ul id="mypage"></ul>
+    </div>
+</div>
+
+<!--===========布局页脚================-->
+<!--底部导航-->
+<div class="footerpage"></div>
+<!--底部导航-->
+
+<script src="../js/siifi/jquery-2.1.0.js" charset="utf-8"></script>
+<script src="../js/siifi/amazeui.js" charset="utf-8"></script>
+<script src="../js/siifi/common.js" charset="utf-8"></script>
+<script src="../js/page/bootstrap-paginator.min.js"></script>
+</body>
+<script>
+    $(function () {
+        $.ajax({
+            url: '/infos/intell/lists',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                var ul = '';
+                $.each(data, function (index, item) {
+                    var tid=index;
+                    ul += '<li id="active">';
+                    ul += '<a href="/infos/intelligentIndustry?id=' + item.intellId + '" id="test' + tid + '" ><span class="span1">' + item.intellName + '</span></a>';
+                    ul += '</li>';
+                    $("#zh").html(ul);
+                });
+                var zz;
+                zz = '<a href="/infos/intelligentClassicCase" id="wa_01"><span class="span1">典型案例</span></a>';
+                $("#zh").append('<li>' + zz + '</li>');
+
+                //默认选中状态
+                $('#active').addClass('active');
+                // 从本地存储中获取存储的id
+                var liClick = sessionStorage.getItem('liClick');
+                if(liClick) {
+                    //改变父控件背景颜色
+                    $('#' + liClick).css({
+                        "border-bottom": "2px solid #44a8f2"
+                    });
+                    //改变父控件中的字体颜色
+                    $('#' + liClick).css({
+                        "color": "#44a8f2"
+                    });
+                    //跳转后首页删除选中状态
+                    $('#active').removeClass('active');
+                }
+                var windowUrl = window.location.href; //获取当前url链接
+                var pathname = window.location.pathname;
+                var test1 = windowUrl.split("http://192.168.10.126:8181")[1];
+                //清除指定 sessionStorage
+                if(test1 == pathname) {
+                    sessionStorage.removeItem("liClick");
+                }
+                //点击时存储id
+                $('ul li').find('a').on('click', function() {
+                    sessionStorage.setItem('liClick', $(this).attr('id'));
+                })
+            }
+        });
+    });
+    $(function () {
+        pageStart();
+
+        function pageStart() {
+            $.ajax({
+                type: "get",
+                url: "/infos/product/lists",
+                dataType: "json",
+                data: {pageNum: 1},
+                success: function (data) {
+                    appendHtml(data.list);
+                    var options = {
+                        bootstrapMajorVersion: 3,
+                        currentPage: data.pageNum,
+                        totalPages: data.pages,
+                        numberOfPages: data.pageSize,
+                        numberOfPages: 6,
+                        itemTexts: function (type, page, current) {
+                            switch (type) {
+                                case "first":
+                                    return "首页";
+                                case "prev":
+                                    return "上一页";
+                                case "next":
+                                    return "下一页";
+                                case "last":
+                                    return "末页";
+                                case "page":
+                                    return page;
+                            }
+                        },
+                        onPageClicked: function (event, originalEvent, type, page) {
+                            $("#all").html("");
+                            $.ajax({
+                                url: "/infos/product/lists",
+                                type: "get",
+                                dataType: "json",
+                                data: {"pageNum": page},
+                                success: function (data) {
+                                    appendHtml(data.list);
+                                }
+                            });
+                        }
+                    };
+                    $('#mypage').bootstrapPaginator(options);
+                }
+            });
+        }
+
+        function appendHtml(list) {
+            for (var i = 0; i < list.length; i++) {
+                var html = '';
+                html +='<div class="am-u-md-3">';
+                html += '<a href="#" style="background-image: url('+list[i].imagePath+')"; class="example-item-bg">';
+                html +='</a>';
+                html +='<div class="text">' + list[i].productName;
+                html +='</div>';
+                html +='</div>';
+                $("#all").append(html);
+            }
+        }
+    });
+</script>
+</html>

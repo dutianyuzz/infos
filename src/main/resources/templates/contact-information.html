@@ -1,0 +1,163 @@
+<!-- 联系方式 -->
+<div class="section" style="margin-top:0px;background-image: url(../images/siifi/pattern-light.png);">
+	<div class="container">
+		<!--索引容器开始-->
+		<div class="index-container">
+			<div class="am-g">
+				<div class="am-u-md-4">
+					<div class="contact_card">
+						<i style="color:#44A8F2" class="contact_card--icon am-icon-phone"></i>
+						<strong class="contact_card--title">联系我们</strong>
+						<p class="contact_card--text">请随时给我们打电话 <br> <strong>(86)10 — 6783 7666</strong> <br> 星期一至星期五，09:00 - 17:00</p>
+						<a href="javascript:;" class="demo1 bounceIn dialog">
+							<button type="button" class="am-btn am-btn-secondary">预约信息</button>
+						</a>
+					</div>
+				</div>
+				<div class="am-u-md-4">
+					<div class="contact_card">
+						<i style="color:#44A8F2" class="contact_card--icon am-icon-envelope-o"></i>
+						<strong class="contact_card--title">电子邮箱</strong>
+						<p class="contact_card--text">请随时给我们写信 <br> <strong><a href="mailto:info@financed.com">service@siifi.cn</a>,</strong> <br> 我们很快就会回信。</p>
+						<a href="https://mail.163.com/">
+							<button type="button" class="am-btn am-btn-secondary">开始写信</button>
+						</a>
+					</div>
+				</div>
+				<div class="am-u-md-4">
+					<div class="contact_card">
+						<i style="color:#44A8F2" class="contact_card--icon am-icon-map-marker"></i>
+						<strong class="contact_card--title">公司地址</strong>
+						<p class="contact_card--text">请到 <br> <strong>北京市北京经济技术开发区宏达北路</strong> <br> 7号2幢四层</p>
+						<a href="javascript:;" class="demo2 bounceIn">
+							<button type="button" class="am-btn am-btn-secondary">查看地图</button>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--索引容器结束-->
+	</div>
+</div>
+<!--***************************************************************************************************************************************-->
+<!-- 基本样式 -->
+<link rel="stylesheet" href="../css/siifi/dialog-common.css" />
+<!-- 动画效果 -->
+<link rel="stylesheet" href="../css/siifi/animate.min.css" />
+
+<!-- wrapper -->
+<div class="wrapper-dialog" id="wrapper">
+	<div class="box">
+		<!-- 注意：请将要放入弹框的内容放在比如id="HBox"的容器中，然后将box的值换成该ID即可，比如：$(element).hDialog({'box':'#HBox'}); -->
+		<div id="HBox">
+			<form action="" method="post" onsubmit="return false;">
+				<ul class="list">
+					<li>
+						<strong>昵 称  <font color="#ff0000">*</font></strong>
+						<div class="fl"><input type="text" name="nickname" value="" class="ipt nickname" /></div>
+					</li>
+					<li>
+						<strong>手 机 <font color="#ff0000">*</font></strong>
+						<div class="fl"><input type="text" name="phone" value="" class="ipt phone" /></div>
+					</li>
+					<li>
+						<strong>邮 箱 <font color="#ff0000">*</font></strong>
+						<div class="fl"><input type="text" name="email" value="" class="ipt email" /></div>
+					</li>
+					<li>
+						<strong>性 别 <font color="#ff0000">&nbsp;</font></strong>
+						<div class="fl">
+							<label class="mr10"><input type="radio" name="sex" value="1"/>男</label>
+							<label class="mr10"><input type="radio" name="sex" value="2"/>女</label>
+							<label><input type="radio" name="sex" value="3"/>保密</label>
+						</div>
+					</li>
+					<li><input type="submit" value="确认提交" class="submitBtn" /></li>
+				</ul>
+			</form>
+		</div>
+		<!-- HBox end -->
+	</div>
+	<!-- box end -->
+</div>
+<!-- wrapper end -->
+
+<div class="wrapper-dialog" id="wrapper">
+	<div class="box">
+		<div id="HBox2">
+
+		</div>
+	</div>
+</div>
+
+<div class="wrapper-dialog" id="wrapper">
+	<div class="box">
+		<div id="HBox3">
+			<div id="Map">
+				<iframe height="500" src="https://apis.map.qq.com/tools/poimarker?type=0&amp;marker=coord:39.802110,116.505600;
+					title:中网国金集团有限公司;addr:北京市北京经济技术开发区宏达北路7号2幢四层&amp;
+					key=TFRBZ-UP63Q-QPR5S-GKERD-2VQK2-2IFDU&amp;referer=myapp" frameborder="0" width="100%">
+    			</iframe>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="../js/siifi/jquery.hDialog.min.js"></script>
+<script>
+	$(function() {
+		var $el = $('.dialog');
+		$el.hDialog();
+
+		//预约回电
+		$('.demo1').hDialog({
+			title: '请填写您的个人信息',
+			width: 350,
+			height: 313,
+			closeHide: true //是否隐藏关闭按钮(默认true：不隐藏，false：隐藏)
+		});
+
+		//地图
+		$('.demo2').hDialog({
+			box: '#HBox3',
+			title: '地图',
+			width: 1200,
+			height: 550,
+			positions: 'center'
+		});
+
+		//提交并验证表单
+		$('.submitBtn').click(function() {
+			var EmailReg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/; //邮件正则
+			var PhoneReg = /^0{0,1}(13[0-9]|15[0-9]|153|156|18[7-9])[0-9]{8}$/; //手机正则
+			var $nickname = $('.nickname');
+			var $email = $('.email');
+			var $phone = $('.phone');
+			if($nickname.val() == '') {
+				$.tooltip('昵称还没填呢...');
+				$nickname.focus();
+			} else if($phone.val() == '') {
+				$.tooltip('手机还没填呢...');
+				$phone.focus();
+			} else if(!PhoneReg.test($phone.val())) {
+				$.tooltip('手机格式错咯...');
+				$phone.focus();
+			} else if($email.val() == '') {
+				$.tooltip('邮箱还没填呢...');
+				$email.focus();
+			} else if(!EmailReg.test($email.val())) {
+				$.tooltip('邮箱格式错咯...');
+				$email.focus();
+			} else {
+				$.tooltip('提交成功，2秒后自动关闭', 2000, true);
+				setTimeout(function() {
+					//$el.hDialog('close',{box:'#HBox'},'http://smwell.sinaapp.com/');  //也可以加跳转链接哦~
+					$el.hDialog('close', {
+						box: '#HBox'
+					});
+				}, 2000);
+			}
+		});
+
+	});
+</script>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>中网国金-后台登录</title>
+    <link rel="stylesheet" href="../css/login/amazeui.css"/>
+    <link rel="stylesheet" href="../css/login/other.min.css"/>
+</head>
+<body class="login-container">
+<div class="login-box">
+    <div class="logo-img">
+        <img src="../images/login.png" alt=""/>
+    </div>
+    <form action="" class="am-form" data-am-validator>
+        <div class="am-form-group">
+            <label><i class="am-icon-user"></i></label>
+            <input type="text" id="username" minlength="3" placeholder="输入账号" required/>
+        </div>
+
+        <div class="am-form-group">
+            <label><i class="am-icon-key"></i></label>
+            <input type="password" id="psw" placeholder="输入密码" required/>
+        </div>
+        <input type="submit" value="登录" class="am-btn am-btn-secondary" id="buttons">
+    </form>
+</div>
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $('#buttons').click(function () {
+        var userName = $("#username").val();
+        var passWord = $("#psw").val();
+        if (userName == "" && passWord == "") {
+            alert("登录信息不能为空");
+        }
+        else {
+            $.ajax({
+                url: '/infos/verify',
+                type: 'post',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    userName: userName,
+                    passWord: passWord,
+                }),
+                dataType: 'json',
+                success: function (data) {
+                    var code=(data.code);
+                    if(code == 1){
+                        alert(data.message);
+                        window.location.href = "/infos/manage.html";
+                    }
+                    if(code == 2){
+                        alert(data.message);
+                    }
+                    if(code == 0){
+                        alert(data.message);
+                    }
+                },
+                error: function () {
+                    alert("请求失败");
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

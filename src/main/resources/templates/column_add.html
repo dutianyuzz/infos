@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>添加目录</title>
     <link rel="stylesheet" href="/css/columnsave.css">
+    <link rel="stylesheet" href="/css/alert/alertm.css">
 </head>
 <body>
 
@@ -20,12 +21,14 @@
     </div>
 </div>
 <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<script src="../js/alert/jquery-1.7.1.min.js"></script>
+<script src="../js/alert/alertm.js"></script>
 <script type="text/javascript">
     $('#btn').click(function () {
         var columnName = $("#text-a").val();
         var shou = $("#text-b").val();
         if (columnName == "") {
-            alert("信息不能为空");
+            alert('信息不能为空!');
         }
         else {
             $.ajax({
@@ -40,12 +43,12 @@
                 success: function (data) {
                     var code = (data.code);
                     if (code == 1) {
-                        alert(data.message);
+                        alertm(data.message);
                         window.location.href = "/infos/column";
                     }
                 },
                 error: function () {
-                    alert("请求失败");
+                    alertm("请求失败");
                 }
             });
         }

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>招聘职位-职位详情</title>
+		<link rel="stylesheet" href="../css/siifi/amazeui.css" />
+		<link rel="stylesheet" href="../css/siifi/common.min.css" />
+		<link rel="stylesheet" href="../css/siifi/recruit-details.css" />
+	</head>
+
+	<body>
+		<div class="layout">
+
+			<!--顶部导航 -->
+			<div class="headerpage"></div>
+			<!--顶部导航 over-->
+
+			<!--===========layout-container================-->
+			<div class="layout-container">
+				<div class="page-header">
+					<div class="am-container">
+						<h1 class="page-header-title">职位详情</h1>
+					</div>
+				</div>
+
+				<div class="breadcrumb-box">
+					<div class="am-container">
+						<ol class="am-breadcrumb">
+							<li>
+								<a href="/infos/siifi.html">首页</a>
+							</li>
+							<li class="am-active">招贤纳士</li>
+							<li class="">
+								<a href="/infos/recruitingPosition">招聘职位</a>
+							</li>
+							<li class="am-active">职位详情</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+
+			<div class="section">
+				<div class="container">
+					<div class="WfTopNav">
+						<div class="title">招聘职位/<strong style="font-size: 16px;">职位详情</strong></div>
+						<div class="hen"></div>
+					</div>
+					<input type="hidden" id="tid" th:value="${invite.inviteId}">
+					<div class="text">
+						<div class="text-01" id="testcon">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--===========布局页脚================-->
+		<!--底部导航-->
+		<div class="footerpage"></div>
+		<!--底部导航-->
+
+		<script src="../js/siifi/jquery-2.1.0.js" charset="utf-8"></script>
+		<script src="../js/siifi/amazeui.js" charset="utf-8"></script>
+		<script src="../js/siifi/common.js" charset="utf-8"></script>
+	</body>
+<script>
+    $(function () {
+        var id = $("#tid").val();
+        $.ajax({
+            url: '/infos/findInviteByIds',
+            type: 'get',
+            data:({
+                inviteId: id,
+            }),
+            dataType: 'json',
+            success: function (data) {
+                $("#testcon").html(data.inviteText);
+                UE.getEditor('editor').execCommand('insertHtml', $('#testcon').html());
+            }
+        })
+    });
+</script>
+</html>

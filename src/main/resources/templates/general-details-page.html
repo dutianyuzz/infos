@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>关于集团</title>
+		<link rel="stylesheet" href="../css/siifi/amazeui.css" />
+		<link rel="stylesheet" href="../css/siifi/common.min.css" />
+		<link rel="stylesheet" href="../css/siifi/general-details-page.css" />
+		<style>
+			.solution-page {
+				background: url(../images/siifi/solution/solution-banner.png);
+				color: #fff;
+				padding: 110px 0 160px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="layout">
+
+			<!--顶部导航 -->
+			<div class="headerpage"></div>
+			<!--顶部导航 over-->
+
+			<!--===========layout-container================-->
+			<input type="hidden" th:value="${column.columnId}" id="tid"/>
+			<div class="layout-container">
+				<div class="solution-page">
+					<div class="container" th:inline="text">
+						<h2>[[${column.columnName}]]</h2>
+						<p></p>
+					</div>
+				</div>
+			</div>
+
+			<div class="section">
+				<div class="container">
+					<div class="WfTopNav">
+						<div class="title"th:inline="text">[[${column.columnName}]]</div>
+						<div class="hen"></div>
+					</div>
+
+					<div class="text" id="testcon">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--联系方式-->
+		<div class="contact"></div>
+		<!--联系方式-->
+
+		<!--===========布局页脚================-->
+		<!--底部导航-->
+		<div class="footerpage"></div>
+		<!--底部导航-->
+
+		<script src="../js/siifi/jquery-2.1.0.js" charset="utf-8"></script>
+		<script src="../js/siifi/amazeui.js" charset="utf-8"></script>
+		<script src="../js/siifi/common.js" charset="utf-8"></script>
+	</body>
+<script>
+    /*富文本编辑器*/
+    var id = $("#tid").val();
+    $.ajax({
+        url: '/infos/findColumns',
+        type: 'get',
+        data: ({
+            columnId: id,
+        }),
+        dataType: 'json',
+        success: function (data) {
+            $("#testcon").html(data.content);
+            ;
+            UE.getEditor('editor').execCommand('insertHtml', $('#testcon').html());
+        }
+    });
+</script>
+
+</html>

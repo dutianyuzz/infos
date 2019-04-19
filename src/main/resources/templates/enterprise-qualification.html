@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>关于集团-企业资质</title>
+    <link rel="stylesheet" href="../css/siifi/amazeui.css"/>
+    <link rel="stylesheet" href="../css/siifi/common.min.css"/>
+    <link rel="stylesheet" href="../css/siifi/enterprise-qualification.css"/>
+    <link rel="stylesheet" href="../css/page/bootstrap.min.css"/>
+</head>
+
+<body>
+<div class="layout">
+
+    <!--顶部导航 -->
+    <div class="headerpage"></div>
+    <!--顶部导航 over-->
+
+    <!--===========layout-container================-->
+    <div class="layout-container">
+        <div class="page-header">
+            <div class="am-container">
+                <h1 class="page-header-title">企业资质</h1>
+            </div>
+        </div>
+
+        <div class="breadcrumb-box">
+            <div class="am-container">
+                <ol class="am-breadcrumb">
+                    <li>
+                        <a href="index.html">首页</a>
+                    </li>
+                    <li class="am-active">关于集团</li>
+                    <li class="am-active">企业资质</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="section--header">
+            <h2 class="section--title">资质简介</h2>
+            <p class="section--description">
+                写一点资质相关的介绍
+                <br>相关的介绍
+            </p>
+        </div>
+
+        <div class="example-container">
+            <div class="am-tabs" data-am-tabs>
+                <ul class="am-tabs-nav am-nav am-nav-tabs am-g">
+                    <li class="am-active am-u-md-2">
+                        <a href="#tab-4-1"><i class="am-icon-map-o"></i>企业资质</a>
+                    </li>
+                </ul>
+
+                <div class="am-tabs-bd am-tabs-bd-ofv">
+                    <div class="am-tab-panel am-active" id="tab-4-1">
+                        <div  id="all">
+                            <div class="am-u-md-3">
+                            </div>
+                            <!-- 实际使用中，如果行的网格数不足 12，需要在最后一列上添加 .am-u-end。这样不会最后一个向右浮动 -->
+<!--                            <div class="am-u-md-3 am-u-end">
+                                <a href="#"
+                                   style="background-image: url(assets/images/enterprise-qualification/zhongguancun.jpg)"
+                                   class="example-item-bg"></a>
+                                <div class="text">中关村高新技术企业证书</div>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--分页-->
+    <div class="col-lg-12" align="right">
+        <ul id="mypage"></ul>
+    </div>
+</div>
+
+<!--===========布局页脚================-->
+<!--底部导航-->
+<div class="footerpage"></div>
+<!--底部导航-->
+
+<script src="../js/siifi/jquery-2.1.0.js" charset="utf-8"></script>
+<script src="../js/siifi/amazeui.js" charset="utf-8"></script>
+<script src="../js/siifi/common.js" charset="utf-8"></script>
+<script src="../js/page/bootstrap-paginator.min.js"></script>
+</body>
+
+<script>
+    $(function () {
+        pageStart();
+        function pageStart() {
+            $.ajax({
+                type: "get",
+                url: "/infos/honey/lists",
+                dataType: "json",
+                data: {pageNum: 1},
+                success: function (data) {
+                    appendHtml(data.list);
+                    var options = {
+                        bootstrapMajorVersion: 3,
+                        currentPage: data.pageNum,
+                        totalPages: data.pages,
+                        numberOfPages: data.pageSize,
+                        numberOfPages: 6,
+                        itemTexts: function (type, page, current) {
+                            switch (type) {
+                                case "first":
+                                    return "首页";
+                                case "prev":
+                                    return "上一页";
+                                case "next":
+                                    return "下一页";
+                                case "last":
+                                    return "末页";
+                                case "page":
+                                    return page;
+                            }
+                        },
+                        onPageClicked: function (event, originalEvent, type, page) {
+                            $("#all").html("");
+                            $.ajax({
+                                url: "/infos/honey/lists",
+                                type: "get",
+                                dataType: "json",
+                                data: {"pageNum": page},
+                                success: function (data) {
+                                    appendHtml(data.list);
+                                }
+                            });
+                        }
+                    };
+                    $('#mypage').bootstrapPaginator(options);
+                }
+            });
+        }
+        function appendHtml(list) {
+            for (var i = 0; i < list.length; i++) {
+                var html = '';
+                html +='<div class="am-u-md-3">';
+                html += '<a href="#" style="background-image: url('+list[i].imagePath+')"; class="example-item-bg">';
+                html +='</a>';
+                html +='<div class="text">' + list[i].honeyName;
+                html +='</div>';
+                html +='</div>';
+                if(list[i] == list.length-1){
+                    html +='<div class="am-u-md-3 am-u-end">';
+                    html += '<a href="#" style="background-image: url('+list[list.length-1].imagePath+')"; class="example-item-bg">';
+                    html +='</a>';
+                    html +='<div class="text">' + list[list.length-1].honeyName;
+                    html +='</div>';
+                    html +='</div>';
+                }
+                $("#all").append(html);
+            }
+        }
+    });
+</script>
+</html>

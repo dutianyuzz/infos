@@ -25,9 +25,9 @@ public class UserController {
         return "column_ueior";
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/admin.html")
     public String login() {
-        return "login";
+        return "admin";
     }
 
     @RequestMapping("/manage.html")
@@ -76,7 +76,7 @@ public class UserController {
     public String exit(HttpServletRequest request){
         HttpSession session = request.getSession();
         session.removeAttribute("user");
-        return "login";
+        return "admin";
     }
 
     /**

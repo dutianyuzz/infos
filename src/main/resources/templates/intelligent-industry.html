@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>产品中心-智能产业</title>
+    <link rel="stylesheet" href="../css/siifi/amazeui.css"/>
+    <link rel="stylesheet" href="../css/siifi/common.min.css"/>
+    <link rel="stylesheet" href="../css/siifi/intelligent-industry.css"/>
+    <style>
+        .solution-page {
+            background: url(../images/siifi/solution/solution-banner.png);
+            color: #fff;
+            padding: 110px 0 160px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="layout">
+
+    <!--顶部导航 -->
+    <div class="headerpage"></div>
+    <!--顶部导航 over-->
+
+    <!--===========布局容器================-->
+    <div class="layout-container">
+        <div class="solution-page">
+            <div class="container" th:inline="text">
+                <h2>[[${intell.intellName}]]</h2>
+                <p></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="breadcrumb-box">
+        <div class="NeiNav">
+            <div class="cmain">
+                <ul id="zh">
+                    <!--导航-->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <div class="WfTopNav"th:inline="text">
+                <input type="hidden" th:value="${intell.intellId}" id="tid"/>
+                <div class="title">智能产业/<strong style="font-size: 16px;">[[${intell.intellName}]]</strong></div>
+                <div class="hen"></div>
+            </div>
+
+            <div class="text" id="testcon">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--联系方式-->
+<div class="contact"></div>
+<!--联系方式-->
+
+<!--===========布局页脚================-->
+<!--底部导航-->
+<div class="footerpage"></div>
+<!--底部导航-->
+
+<script src="../js/siifi/jquery-2.1.0.js" charset="utf-8"></script>
+<script src="../js/siif/amazeui.js" charset="utf-8"></script>
+<script src="../js/siifi/common.js" charset="utf-8"></script>
+</body>
+<script>
+    $(function () {
+        $.ajax({
+            url: '/infos/intell/lists',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                var ul = '';
+                $.each(data, function (index, item) {
+                    var tid=index;
+                    ul += '<li id="active">';
+                    ul += '<a href="/infos/intelligentIndustry?id=' + item.intellId + '" id="test' + tid + '" ><span class="span1">' + item.intellName + '</span></a>';
+                    ul += '</li>';
+                    $("#zh").html(ul);
+                });
+                var zz;
+                zz = '<a href="/infos/intelligentClassicCase" id="wa_01"><span class="span1">典型案例</span></a>';
+                $("#zh").append('<li>' + zz + '</li>');
+
+                //默认选中状态
+                $('#active').addClass('active');
+                // $('#active').find("a").css({
+                //     "color": "#44a8f2",
+                //     "border-bottom": "2px solid #44a8f2"
+                // });
+                // 从本地存储中获取存储的id
+                var liClick = sessionStorage.getItem('liClick');
+                if(liClick) {
+                    //改变父控件背景颜色
+                    $('#' + liClick).css({
+                        "border-bottom": "2px solid #44a8f2"
+                    });
+                    //改变父控件中的字体颜色
+                    $('#' + liClick).css({
+                        "color": "#44a8f2"
+                    });
+                    //跳转后首页删除选中状态
+                    $('#active').removeClass('active');
+
+                    // $('#active').find("a").css({
+                    //     "color": "not specified",
+                    //     "border-bottom": "not specified"
+                    // });
+                }
+                var windowUrl = window.location.href; //获取当前url链接
+                var pathname = window.location.pathname;
+                var test1 = windowUrl.split("http://192.168.10.126:8181")[1];
+                //清除指定 sessionStorage
+                if(test1 == pathname) {
+                    sessionStorage.removeItem("liClick");
+                }
+                //点击时存储id
+                $('ul li').find('a').on('click', function() {
+                    sessionStorage.setItem('liClick', $(this).attr('id'));
+                });
+            }
+        });
+
+        var id = $("#tid").val();
+        $.ajax({
+            url: '/infos/findIntells',
+            type: 'get',
+            data:({
+                intellId: id,
+            }),
+            dataType: 'json',
+            success: function (data) {
+                $("#testcon").html(data.content);
+                UE.getEditor('editor').execCommand('insertHtml', $('#testcon').html());
+            }
+        });
+    });
+</script>
+
+</html>

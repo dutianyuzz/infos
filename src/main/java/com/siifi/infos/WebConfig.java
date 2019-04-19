@@ -10,6 +10,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/infos/**")
-                .allowedOrigins("http://localhost:3000");// 允许 3000 端口访问
+                .allowedOrigins("http://192.168.10.176:8020");// 允许 3000 端口访问
     }
 }

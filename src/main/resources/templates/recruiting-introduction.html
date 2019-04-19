@@ -1,84 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<title>招贤纳士 招聘简介</title>
-		<link rel="stylesheet" href="../css/site/recruiting-introduction.css" />
-	</head>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>招贤纳士-招聘简介</title>
+	<link rel="stylesheet" href="../css/siifi/amazeui.css" />
+	<link rel="stylesheet" href="../css/siifi/common.min.css" />
+	<link rel="stylesheet" href="../css/siifi/recruit.css" />
+	<style>
+		.solution-page {
+			background: url(../images/siifi/solution/solution-banner.png);
+			color: #fff;
+			padding: 110px 0 160px;
+		}
+	</style>
+</head>
 
-	<body>
+<body>
+<div class="layout">
 
-		<!--顶部导航 -->
-		<div id="headerpage"></div>
-		<!--顶部导航 over-->
+	<!--顶部导航 -->
+	<div class="headerpage"></div>
+	<!--顶部导航 over-->
 
-		<div class="main">
-			<div class="NeiBanner" style="background-image: url('../images/ban1.jpg')"></div>
-			<div class="NeiNav">
-				<div class="cmain">
-					<ul>
-						<li class="active">
-							<a href="/infos/recruitingIntroduction">
-								<span class="span1">招聘简介</span>
-								<span class="span2">RECRUITMENT BRIEF</span>
-							</a>
-						</li>
-						<li>
-							<a href="/infos/recruitingPosition">
-								<span class="span1">招聘职位</span>
-								<span class="span2">RECRUITMENT POSITION</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="WfTopNav">
-				<div class="cmain">
-					<div class="txt1">招贤纳士/<strong style="font-size: 16px;">招聘简介</strong></div>
-					<div class="txt2">CAREERS</div>
-					<div class="hen"></div>
-				</div>
-			</div>
-			<div class="WfMainFigure">
-				<div class="cmain">
-					<div class="WfMainTxt" id="testcon">
-					</div>
-					<div class="WfMainImg"><img src="../images/nj1.jpg" alt="" /></div>
-				</div>
+	<!--===========布局容器================-->
+	<div class="layout-container">
+		<div class="solution-page">
+			<div class="container">
+				<h2>招聘简介</h2>
+				<p></p>
 			</div>
 		</div>
+	</div>
 
-		<!--底部导航-->
-		<div id="footerpage"></div>
-		<!--底部导航 over-->
+	<div class="breadcrumb-box">
+		<div class="NeiNav">
+			<div class="cmain">
+				<ul>
+					<li class="active">
+						<a href="/infos/recruitingIntroduction">
+							<span class="span1">招聘简介</span>
+						</a>
+					</li>
+					<li>
+						<a href="/infos/recruitingPosition">
+							<span class="span1">招聘职位</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-		<script src="../js/site/jquery-1.12.4.js"></script>
-		<script src="../js/site/jquery.easing.js"></script>
-		<script src="../js/site/jquery.SuperSlide.2.1.1.js"></script>
-		<script src="../js/site/main.js"></script>
+	<div class="section">
+		<div class="container">
+			<div class="WfTopNav">
+				<div class="title">招贤纳士/<strong style="font-size: 16px;">招聘简介</strong></div>
+				<div class="hen"></div>
+			</div>
 
-		<script>
-			$(function() {
-				/*公共部分
-				 * 导航栏
-				 * footer CopyRight
-				 */
-                $("#headerpage").load("/infos/topNavigationBar");
-                $("#footerpage").load("/infos/bottomNavigationBar");
-			});
+			<div class="text" id="testcon">
+			</div>
+		</div>
+	</div>
+</div>
 
-            $(function () {
-                $.ajax({
-                    url: '/infos/findJobByIds',
-                    dataType: 'json',
-                    success: function (data) {
-                        $("#testcon").html(data.content);
-                        UE.getEditor('editor').execCommand('insertHtml', $('#testcon').html());
-                    }
-                })
-            });
-		</script>
-	</body>
+<!--联系方式-->
+<div class="contact"></div>
+<!--联系方式-->
 
+<!--===========布局页脚================-->
+<!--底部导航-->
+<div class="footerpage"></div>
+<!--底部导航-->
+
+<script src="../js/siifi/jquery-2.1.0.js" charset="utf-8"></script>
+<script src="../js/siifi/amazeui.js" charset="utf-8"></script>
+<script src="../js/siifi/common.js" charset="utf-8"></script>
+</body>
+<script>
+    $(function () {
+        $.ajax({
+            url: '/infos/findJobByIds',
+            dataType: 'json',
+            success: function (data) {
+                $("#testcon").html(data.content);
+                UE.getEditor('editor').execCommand('insertHtml', $('#testcon').html());
+            }
+        })
+    });
+</script>
 </html>

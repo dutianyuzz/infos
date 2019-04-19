@@ -1,0 +1,44 @@
+
+
+.solution-page .container {
+	text-align: center;
+}
+
+.solution-page .container h2 {
+	font-size: 36px;
+}
+
+.section {
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.WfTopNav {
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 10px;
+}
+
+.WfTopNav .title {
+	font-family: "微软雅黑";
+	font-size: 26px;
+}
+
+.WfTopNav .hen {
+	width: 100px;
+	height: 2px;
+	background-color: #44a8f2;
+	margin-top: 5px;
+}
+
+.text p {
+	font-family: "微软雅黑";
+	font-size: 16px;
+	padding: 20px 20px 20px 20px;
+}
+
+@media screen and (max-width:640px) {
+	.solution-page {
+		padding: 55px 0 60px;
+	}
+}

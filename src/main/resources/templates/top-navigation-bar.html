@@ -1,109 +1,297 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>顶部导航栏</title>
-</head>
-
-<body>
-<div class="header">
-    <div class="HeaderTop">
-        <div class="cmain">
-            <div class="lf">
-                欢迎进入中网国金集团有限公司官方网站！ &nbsp;&nbsp;&nbsp;
-                <a class="img_email"  href="#" style="background-image:url(../images/you_jian.png)">企业邮箱&nbsp;&nbsp;|&nbsp;</a>
-                <a class="img_office_platform" href="#" style="background-image:url(../images/ban_gong.png)">办公平台&nbsp;&nbsp;|&nbsp;</a>
-                <a class="img_business_affairs" href="#" style="background-image:url(../images/shang_yei.png)">商务信息平台</a>
+<!--===========布局标题================-->
+<div class="layout-header am-hide-sm-only">
+    <!--顶部开始-->
+    <div class="topbar">
+        <div class="container">
+            <div class="am-g">
+                <div class="am-u-md-4" style="line-height: 35px;">
+                    <div class="topbar-left">
+                        欢迎进入中网国金集团有限公司官方网站！
+                    </div>
+                </div>
+                <div class="am-u-md-8">
+                    <div class="topbar-right am-text-right am-fr">
+                        <a href="/infos/login.html">登录</a>
+                        <a href="/infos/register.html">注册</a>
+                    </div>
+                </div>
             </div>
-            <div class="HeaderTel" style="background-image: url(../images/tel1.png)">全国免费咨询服务热线：<em>+8610-67837666</em></div>
         </div>
     </div>
-    <div class="HeaderBot">
-        <div class="cmain">
-            <div class="logo">
-                <a href="index.html"><img src="../images/logo03.png" alt=""/></a>
+    <!--顶部结束-->
+
+    <div class="header-box" data-am-sticky>
+        <!--页眉开始-->
+        <div class="container">
+            <div class="header">
+                <div class="am-g">
+                    <div class="am-u-lg-2 am-u-sm-12">
+                        <div class="logo">
+                            <a href=""><img src="../images/siifi/logo.png" alt=""/></a>
+                        </div>
+                    </div>
+                    <div class="am-u-md-10">
+                        <div class="header-right am-fr">
+                            <div class="header-contact">
+                                <div class="header_contacts--item">
+                                    <div class="contact_mini">
+                                        <i style="color:#44A8F2" class="contact-icon am-icon-phone"></i>
+                                        <strong>(86)10 — 6783 7666</strong>
+                                        <span>周一~周五, 09:00 - 17:00</span>
+                                    </div>
+                                </div>
+                                <div class="header_contacts--item">
+                                    <div class="contact_mini">
+                                        <i style="color:#44A8F2" class="contact-icon am-icon-envelope-o"></i>
+                                        <strong>service@siifi.cn</strong>
+                                        <span>随时欢迎您的来信！</span>
+                                    </div>
+                                </div>
+                                <div class="header_contacts--item">
+                                    <div class="contact_mini">
+                                        <i style="color:#44A8F2" class="contact-icon am-icon-map-marker"></i>
+                                        <strong>中网国金集团有限公司</strong>
+                                        <span>北京市北京经济技术开发区宏达北路7号2幢四层</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="/infos/contact" class="contact-btn">
+                                <button type="button" class="am-btn am-btn-secondary am-radius">联系我们</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+        <!--页眉结束-->
 
-            <div class="HeaderList">
-                <ul>
-                    <li id="index" class="dropdown_0">
-                        <!-- class="active" -->
-                        <a id="a_01" href="/infos/index.html">
-                            <span class="span1">首页</span>
-                            <span class="span2">HOME</span>
-                            <i class="med"></i>
-                        </a>
-                    </li>
-
-                    <li class="dropdown_1">
-                        <a id="hhh" href="#">
-                            <span class="span1">关于集团</span>
-                            <span class="span2">ABOUT GROUP</span>
-                            <i class="med"></i>
-                        </a>
-                        <div class="dropdown-content_1" id="one">
-                            <!--导航栏-->
-                        </div>
-                    </li>
+        <!--导航起始点-->
+        <div class="nav-contain">
+            <div class="nav-inner">
+                <ul class="am-nav am-nav-pills am-nav-justify">
+                    <li class="">
+                        <a href="/infos/siifi.html">首页</a>
                     </li>
 
-                    <li class="dropdown_2">
-                        <a href="#">
-                            <span class="span1">产品与解决方案</span>
-                            <span class="span2">PRODUCTS & SOLUTION</span>
-                            <i class="med"></i>
-                        </a>
-                        <div class="dropdown-content_2">
-                            <a th:href="@{'/infos/industryIntelligent?id='+${box.intellId}}" id="a_07">智能产业</a>
-                            <a th:href="@{'/infos/industryEcology?id='+${box.zoologyId}}" id="a_08">生态产业</a>
-                            <a th:href="@{'/infos/industryMedia?id='+${box.mediaId}}" id="a_09">文化传媒</a>
-                            <a th:href="@{'/infos/industryEducation?id='+${box.cultivateId}}" id="a_091">教育培训</a>
-                        </div>
+                    <li class="">
+                        <a href="#">关于集团</a>
+                        <!-- 启动子菜单-->
+                        <ul class="sub-menu" id="one">
+                            <!--顶部导航-->
+                        </ul>
+                        <!-- 子菜单结束-->
                     </li>
+
                     <li>
-                        <a id="a_11" href="#">
-                            <span class="span1">集团动态</span>
-                            <span class="span2">GROUP DYNAMICS</span>
-                            <i class="med"></i>
-                        </a>
+                        <a href="#">产品中心</a>
+                        <!-- 启动子菜单-->
+                        <ul class="sub-menu">
+                            <li class="menu-item">
+                                <a th:href="@{'/infos/intelligentIndustry?id='+${box.intellId}}">智能产业</a>
+                            </li>
+                            <li class="menu-item">
+                                <a th:href="@{'/infos/industryEcology?id='+${box.zoologyId}}">生态产业</a>
+                            </li>
+                            <li class="menu-item">
+                                <a th:href="@{'/infos/industryMedia?id='+${box.mediaId}}">文化传媒</a>
+                            </li>
+                            <li class="menu-item">
+                                <a th:href="@{'/infos/industryEducation?id='+${box.cultivateId}}">教育培训</a>
+                            </li>
+                        </ul>
+                        <!-- 子菜单结束-->
                     </li>
-                    <li class="dropdown_3">
-                        <a href="#">
-                            <span class="span1">社会责任</span>
-                            <span class="span2">SOCIAL RESPONSIBILITY</span>
-                            <i class="med"></i>
-                        </a>
-                        <div class="dropdown-content_3">
-                            <a id="a_12" href="/infos/responsibilityHonest">诚信声明</a>
-                            <a id="a_13" href="/infos/responsibilityBlacklist">黑名单</a>
-                        </div>
+
+                    <li>
+                        <a href="news.html">集团动态</a>
                     </li>
-                    <li class="dropdown_4">
-                        <a href="/infos/tome" id="a_14">
-                            <span class="span1">联系方式</span>
-                            <span class="span2">CONTACT INFORMATION</span>
-                            <i class="med"></i>
-                        </a>
+
+                    <li>
+                        <a href="#">社会责任</a>
+                        <!-- 启动子菜单-->
+                        <ul class="sub-menu">
+                            <li class="menu-item">
+                                <a href="/infos/responsibilityHonest">诚信声明</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="/infos/responsibilityBlacklist">黑名单</a>
+                            </li>
+                        </ul>
+                        <!-- 子菜单结束-->
                     </li>
-                    <li class="dropdown_5">
-                        <a href="#">
-                            <span class="span1">招贤纳士</span>
-                            <span class="span2">RECRUIT</span>
-                            <i class="med"></i>
-                        </a>
-                        <div class="dropdown-content_5">
-                            <a id="a_18" href="/infos/recruitingIntroduction">招聘简介</a>
-                            <a id="a_19" href="/infos/recruitingPosition">招聘职位</a>
-                        </div>
+
+                    <li>
+                        <a href="#">招贤纳士</a>
+                        <!-- 启动子菜单-->
+                        <ul class="sub-menu">
+                            <li class="menu-item">
+                                <a href="/infos/recruitingIntroduction">招聘简介</a>
+
+                            </li>
+                            <li class="menu-item">
+                                <a href="/infos/recruitingPosition">招聘职位</a>
+                            </li>
+                        </ul>
+                        <!-- 子菜单结束-->
+                    </li>
+
+                    <li>
+                        <a href="/infos/contact" class="">联系我们</a>
+                    </li>
+
+                    <li>
+                        <a href="#">工作台</a>
+                        <!-- 启动子菜单-->
+                        <ul class="sub-menu">
+                            <li class="menu-item">
+                                <a href="http://mail.siifi.cn/">企业邮箱</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="http://oa.siifi.cn/jsoa/login.jsp">办公平台</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="http://www.chinazwgj.com/PT/login.asp">商务信息平台</a>
+                            </li>
+                        </ul>
+                        <!-- 子菜单结束-->
+                    </li>
+
+                    <li>
+                        <a href="#">对外合作</a>
                     </li>
                 </ul>
             </div>
         </div>
+        <!--导航结束点-->
     </div>
 </div>
 
-<script src="../js/site/top-navigation-bar.js"></script>
+<!--导航栏开始-->
+<div class="m-header">
+    <div class="am-g am-show-sm-only">
+        <div class="am-u-sm-2">
+            <div class="menu-bars">
+                <a href="#doc-oc-demo1" data-am-offcanvas="{effect: 'push'}"><i
+                        class="am-menu-toggle-icon am-icon-bars"></i></a>
+                <!-- 侧边栏内容 -->
+                <nav data-am-widget="menu" class="am-menu  am-menu-offcanvas1" data-am-menu-offcanvas>
+                    <a href="javascript: void(0)" class="am-menu-toggle"></a>
 
+                    <div class="am-offcanvas">
+                        <div class="am-offcanvas-bar">
+                            <ul class="am-menu-nav am-avg-sm-1">
+                                <li>
+                                    <a href="/infos/siifi.html" class="">首页</a>
+                                </li>
+
+                                <li class="am-parent">
+                                    <a href="#">关于集团</a>
+                                    <!-- 启动子菜单-->
+                                    <ul class="am-menu-sub am-collapse" id="two">
+                                        <!--移动端顶部-->
+                                    </ul>
+                                    <!-- 子菜单结束-->
+                                </li>
+
+                                <li class="am-parent">
+                                    <a href="#" class="">产品中心</a>
+                                    <ul class="am-menu-sub am-collapse ">
+                                        <li class="menu-item">
+                                            <a th:href="@{'/infos/industryIntelligent?id='+${box.intellId}}" 智能产业</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a th:href="@{'/infos/industryEcology?id='+${box.zoologyId}}">生态产业</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a th:href="@{'/infos/industryMedia?id='+${box.mediaId}}">文化传媒</a>
+
+                                        </li>
+                                        <li class="menu-item">
+                                            <a th:href="@{'/infos/industryEducation?id='+${box.cultivateId}}">教育培训</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="">
+                                    <a href="news.html" class="">集团动态</a>
+                                </li>
+
+                                <li class="am-parent">
+                                    <a href="#" class="">社会责任</a>
+                                    <ul class="am-menu-sub am-collapse  ">
+                                        <li class="">
+                                            <a href="/infos/responsibilityHonest">诚信声明</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="/infos/responsibilityBlacklist">黑名单</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="am-parent">
+                                    <a href="#">招贤纳士</a>
+                                    <!-- 启动子菜单-->
+                                    <ul class="am-menu-sub am-collapse">
+                                        <li class="">
+                                            <a href="/infos/recruitingIntroduction">招聘简介</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="/infos/recruitingPosition">招聘职位</a>
+                                        </li>
+                                    </ul>
+                                    <!-- 子菜单结束-->
+                                </li>
+
+                                <li class="">
+                                    <a href="/infos/contact" class="">联系我们</a>
+                                </li>
+
+                                <li class="am-parent">
+                                    <a href="#">工作台</a>
+                                    <!-- 启动子菜单-->
+                                    <ul class="am-menu-sub am-collapse ">
+                                        <li class="">
+                                            <a href="http://mail.siifi.cn/">企业邮箱</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="http://oa.siifi.cn/jsoa/login.jsp">办公平台</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="http://www.chinazwgj.com/PT/login.asp">商务信息平台</a>
+                                        </li>
+                                    </ul>
+                                    <!-- 子菜单结束-->
+                                </li>
+
+                                <li>
+                                    <a href="#">对外合作</a>
+                                </li>
+
+                                <li class="">
+                                    <a href="html/login.html" class="">登录</a>
+                                </li>
+
+                                <li class="">
+                                    <a href="html/register.html" class="">注册</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+        <div class="am-u-sm-5 am-u-end">
+            <div class="m-logo">
+                <a href=""><img src="../images/siifi/logo.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+    <!--导航栏结束-->
+</div>
 <script>
     $(function () {
         $.ajax({
@@ -113,128 +301,11 @@
             success: function (data) {
                 var a = "";
                 $.each(data, function (index, item) {
-                    a += '<a href="/infos/about?id=' + item.columnId + '">' + item.columnName + '</a>';
+                    a += '<li class="menu-item"><a href="/infos/generalDetailsPage?id=' + item.columnId + '">' + item.columnName + '</a></li>';
                     $("#one").html(a);
                 });
-                $("#one").append('<a href="/infos/aboutCer">企业资质</a>');
-                var tid = $("#one a").length;
-                for (var i = 0; i < tid; i++) {
-                    var vid = $("#one a");
-                    vid[i].id = "a_" + i;
-                }
-
-                $("#one a").click(function () {
-                    var n = $("#one a").index(this);
-                    $.ajax({
-                        url: '/infos/saveNn',
-                        type: 'post',
-                        async: false,
-                        data: ({
-                            n: n
-                        }),
-                        dataType: 'json',
-                        success: function (data) {
-                        },
-                        error: function () {
-                            alert("请求失败");
-                        }
-                    });
-                });
-
-                $("#a_07").click(function () {
-                    $.ajax({
-                        url: '/infos/saveNna',
-                        type: 'post',
-                        async: false,
-                        data: ({
-                            n: 0
-                        }),
-                        dataType: 'json',
-                        success: function (data) {
-                        },
-                        error: function () {
-                            alert("请求失败");
-                        }
-                    });
-                });
-
-                $("#a_08").click(function () {
-                    $.ajax({
-                        url: '/infos/saveNnb',
-                        type: 'post',
-                        async: false,
-                        data: ({
-                            n: 0
-                        }),
-                        dataType: 'json',
-                        success: function (data) {
-                        },
-                        error: function () {
-                            alert("请求失败");
-                        }
-                    });
-                });
-
-                $("#a_09").click(function () {
-                    $.ajax({
-                        url: '/infos/saveNnc',
-                        type: 'post',
-                        async: false,
-                        data: ({
-                            n: 0
-                        }),
-                        dataType: 'json',
-                        success: function (data) {
-                        },
-                        error: function () {
-                            alert("请求失败");
-                        }
-                    });
-                });
-
-                $("#a_091").click(function () {
-                    $.ajax({
-                        url: '/infos/saveNnd',
-                        type: 'post',
-                        async: false,
-                        data: ({
-                            n: 0
-                        }),
-                        dataType: 'json',
-                        success: function (data) {
-                        },
-                        error: function () {
-                            alert("请求失败");
-                        }
-                    });
-                });
-
-                var liClick = sessionStorage.getItem('liClick');
-                if (liClick) {
-                    //改变id对应的a标签的字体颜色以及加粗
-                    //$('#' + liClick).css('color', 'green');
-                    //$('#' + liClick).css('font-weight', '800');
-
-                    //改变父控件背景颜色
-                    $('#' + liClick).parentsUntil("ul").css({
-                        "background-color": "#44a8f2"
-                    });
-                    //改变父控件中的字体颜色
-                    $('#' + liClick).parentsUntil("ul").find('a span').css({
-                        "color": "#ffffff"
-                    });
-                    //跳转后首页删除选中状态
-                    $('#index').removeClass('active');
-                }
-
-                //点击时存储id
-                $('.HeaderList ul').find('a').on('click', function () {
-                    sessionStorage.setItem('liClick', $(this).attr('id'));
-                })
+                $("#one").append('<li class="menu-item"><a href="/infos/enterpriseQualification">企业资质</a></li>');
             }
-        })
+        });
     });
 </script>
-</body>
-
-</html>

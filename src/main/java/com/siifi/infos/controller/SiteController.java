@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping(value = "infos")
@@ -40,14 +38,27 @@ public class SiteController {
      *
      * @return
      */
-    @RequestMapping("/index.html")
+    @RequestMapping("/siifi.html")
     public String index() {
-        return "index";
+        return "siifi";
     }
 
     /**
+     * 登录
      *
-     *
+     * @return
+     */
+    @RequestMapping("/login.html")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping("/register.html")
+    public String register() {
+        return "register";
+    }
+
+    /**
      * @return
      */
     @RequestMapping("/text")
@@ -86,8 +97,33 @@ public class SiteController {
      * @return
      */
     @RequestMapping("/bottomNavigationBar")
-    public String bottomNavigationBar() {
-        return "bottom-navigation-bar";
+    public ModelAndView bottomNavigationBar() {
+        List<Intell> intellList = intellService.getIntell();
+        int intellId = intellList.get(0).getIntellId();
+        List<Zoology> zoologyList = zoologyService.getZoology();
+        int zoologyId = zoologyList.get(0).getZoologyId();
+        List<Media> mediaList = mediaService.getMedia();
+        int mediaId = mediaList.get(0).getMediaId();
+        List<Cultivate> cultivateList = cultivateService.getCultivate();
+        int cultivateId = cultivateList.get(0).getCultivateId();
+        Box box = new Box();
+        box.setIntellId(intellId);
+        box.setZoologyId(zoologyId);
+        box.setMediaId(mediaId);
+        box.setCultivateId(cultivateId);
+        ModelAndView model = new ModelAndView("bottom-navigation-bar");
+        model.addObject("box", box);
+        return model;
+    }
+
+    /**
+     * 中部导航
+     *
+     * @return
+     */
+    @RequestMapping("/contactInformation")
+    public String ContactInformation() {
+        return "contact-information";
     }
 
 
@@ -97,10 +133,10 @@ public class SiteController {
      * @param id
      * @return
      */
-    @RequestMapping("/about")
+    @RequestMapping("/generalDetailsPage")
     public ModelAndView findColumn(Integer id) {
         Column column = columnService.getColumnById(id);
-        ModelAndView model = new ModelAndView("about");
+        ModelAndView model = new ModelAndView("general-details-page");
         model.addObject("column", column);
         return model;
     }
@@ -110,9 +146,9 @@ public class SiteController {
      *
      * @return
      */
-    @RequestMapping("/aboutCer")
+    @RequestMapping("/enterpriseQualification")
     public String aboutCer() {
-        return "about-cer";
+        return "enterprise-qualification";
     }
 
     /**
@@ -120,10 +156,10 @@ public class SiteController {
      *
      * @return
      */
-    @RequestMapping("/industryIntelligent")
+    @RequestMapping("/intelligentIndustry")
     public ModelAndView findIntell(Integer id) {
         Intell intell = intellService.getIntellById(id);
-        ModelAndView model = new ModelAndView("industry-intelligent");
+        ModelAndView model = new ModelAndView("intelligent-industry");
         model.addObject("intell", intell);
         return model;
     }
@@ -133,9 +169,9 @@ public class SiteController {
      *
      * @return
      */
-    @RequestMapping("/industryCase")
+    @RequestMapping("/intelligentClassicCase")
     public String industryCase() {
-        return "industry-case";
+        return "intelligent-classic-case";
     }
 
     /**
@@ -202,9 +238,9 @@ public class SiteController {
      *
      * @return
      */
-    @RequestMapping("/tome")
-    public String tome() {
-        return "tome";
+    @RequestMapping("/contact")
+    public String contact() {
+        return "contact";
     }
 
     /**
@@ -232,166 +268,12 @@ public class SiteController {
      *
      * @return
      */
-    @RequestMapping("/applyOnline")
+    @RequestMapping("/recruitDetails")
     public ModelAndView applyOnline(Integer id) {
         System.out.println(id);
         Invite invite = inviteService.getInviteById(id);
-        ModelAndView model = new ModelAndView("apply-online");
+        ModelAndView model = new ModelAndView("recruit-details");
         model.addObject("invite", invite);
         return model;
-    }
-
-    /**
-     * 保存前端变量(关于集团)
-     *
-     * @param reqMap
-     * @return
-     */
-    @RequestMapping(value = "/saveNn", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> saveNn(@RequestParam int n) {
-        Map<String, Object> map = new HashMap<>();
-        String nn = String.valueOf(n);
-        Tid tid = new Tid();
-        tid.setId(1);
-        tid.setTid(nn);
-        tidService.editTid(tid);
-        map.put("message", "1");
-        return map;
-    }
-
-    /**
-     * 取出前端变量
-     *
-     * @return
-     */
-    @RequestMapping(value = "/findNn", method = RequestMethod.GET)
-    @ResponseBody
-    public Tid findNn() {
-        Tid tid = tidService.findByIdTid(1);
-        return tid;
-    }
-
-    /**
-     * 保存前端变量(智能产业)
-     *
-     * @param reqMap
-     * @return
-     */
-    @RequestMapping(value = "/saveNna", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> saveNna(@RequestParam int n) {
-        Map<String, Object> map = new HashMap<>();
-        String nn = String.valueOf(n);
-        Tid tid = new Tid();
-        tid.setId(2);
-        tid.setTid(nn);
-        tidService.editTid(tid);
-        map.put("message", "1");
-        return map;
-    }
-
-    /**
-     * 取出前端变量(智能产业)
-     *
-     * @return
-     */
-    @RequestMapping(value = "/findNna", method = RequestMethod.GET)
-    @ResponseBody
-    public Tid findNna() {
-        Tid tid = tidService.findByIdTid(2);
-        return tid;
-    }
-
-    /**
-     * 保存前端变量(生态产业)
-     *
-     * @param reqMap
-     * @return
-     */
-    @RequestMapping(value = "/saveNnb", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> saveNnb(@RequestParam int n) {
-        Map<String, Object> map = new HashMap<>();
-        String nn = String.valueOf(n);
-        Tid tid = new Tid();
-        tid.setId(3);
-        tid.setTid(nn);
-        tidService.editTid(tid);
-        map.put("message", "1");
-        return map;
-    }
-
-    /**
-     * 取出前端变量(生态产业)
-     *
-     * @return
-     */
-    @RequestMapping(value = "/findNnb", method = RequestMethod.GET)
-    @ResponseBody
-    public Tid findNnb() {
-        Tid tid = tidService.findByIdTid(3);
-        return tid;
-    }
-
-    /**
-     * 保存前端变量(文化传媒)
-     *
-     * @param reqMap
-     * @return
-     */
-    @RequestMapping(value = "/saveNnc", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> saveNnc(@RequestParam int n) {
-        Map<String, Object> map = new HashMap<>();
-        String nn = String.valueOf(n);
-        Tid tid = new Tid();
-        tid.setId(4);
-        tid.setTid(nn);
-        tidService.editTid(tid);
-        map.put("message", "1");
-        return map;
-    }
-
-    /**
-     * 取出前端变量(文化传媒)
-     *
-     * @return
-     */
-    @RequestMapping(value = "/findNnc", method = RequestMethod.GET)
-    @ResponseBody
-    public Tid findNnc() {
-        Tid tid = tidService.findByIdTid(4);
-        return tid;
-    }
-
-    /**
-     * 保存前端变量(教育培训)
-     *
-     * @param reqMap
-     * @return
-     */
-    @RequestMapping(value = "/saveNnd", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> saveNnd(@RequestParam int n) {
-        Map<String, Object> map = new HashMap<>();
-        String nn = String.valueOf(n);
-        Tid tid = new Tid();
-        tid.setId(5);
-        tid.setTid(nn);
-        tidService.editTid(tid);
-        map.put("message", "1");
-        return map;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @RequestMapping(value = "/findNnd", method = RequestMethod.GET)
-    @ResponseBody
-    public Tid findNnd() {
-        Tid tid = tidService.findByIdTid(5);
-        return tid;
     }
 }

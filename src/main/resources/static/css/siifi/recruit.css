@@ -1,0 +1,145 @@
+.solution-page {
+	background: url(../images/solution/solution-banner.png);
+	color: #fff;
+	padding: 110px 0 160px;
+}
+
+.solution-page .container {
+	text-align: center;
+}
+
+.solution-page .container h2 {
+	font-size: 36px;
+}
+
+.section {
+	border-bottom: 1px solid #e9e9e9;
+}
+
+.WfTopNav {
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 10px;
+}
+
+.WfTopNav .title {
+	font-family: "微软雅黑";
+	font-size: 26px;
+}
+
+.WfTopNav .hen {
+	width: 100px;
+	height: 2px;
+	background-color: #44a8f2;
+	margin-top: 5px;
+}
+
+.text p {
+	font-family: "微软雅黑";
+	font-size: 16px;
+	padding: 20px 20px 20px 20px;
+}
+
+@media screen and (max-width:640px) {
+	.solution-page {
+		padding: 55px 0 60px;
+	}
+}
+
+a {
+	color: #666;
+	text-decoration: none;
+}
+
+.NeiNav {
+	width: 100%;
+	height: 60px;
+	background-color: #f6f6f6;
+	text-align: center;
+}
+
+.NeiNav .cmain {
+	font-size: 0
+}
+
+.NeiNav ul li {
+	display: inline-block;
+	vertical-align: top;
+	height: 58px;
+	border-bottom: 2px solid transparent;
+	font-size: 14px;
+	margin-right: 30px;
+}
+
+.NeiNav ul li.active {
+	border-bottom: 2px solid #44a8f2;
+}
+
+.NeiNav ul li.active a {
+	color: #44a8f2
+}
+
+.NeiNav ul li:hover {
+	border-bottom: 2px solid #44a8f2;
+}
+
+.NeiNav ul li:hover span {
+	color: #44a8f2 !important;
+}
+
+.NeiNav ul li a {
+	display: block;
+	padding: 15px 0;
+	font-size: 16px;
+}
+
+.NeiNav ul li a span {
+	display: block;
+}
+
+
+/* 表单  */
+
+.tab {
+	padding: 20px 20px 20px 20px;
+}
+
+.tftable {
+	font-size: 14px;
+	color: #333333;
+	width: 100%;
+	border-width: 1px;
+	border-color: #729ea5;
+	border-collapse: collapse;
+}
+
+.tftable th {
+	font-size: 14px;
+	background-color: #acc8cc;
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #729ea5;
+	text-align: left;
+}
+
+.tftable tr {
+	background-color: #ffffff;
+}
+
+.tftable td {
+	font-size: 14px;
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #729ea5;
+}
+
+.tftable tr:hover {
+	background-color: #ffff99;
+}
+
+.details:hover {
+	cursor: pointer;
+}
