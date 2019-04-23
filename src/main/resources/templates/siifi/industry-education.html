@@ -14,6 +14,10 @@
             color: #fff;
             padding: 110px 0 160px;
         }
+        @font-face {
+            font-family: fontawesome;
+            src: url(../fonts/fontawesome-webfont.ttf), url(../fonts/fontawesome-webfont.woff)
+        }
     </style>
 </head>
 
@@ -85,33 +89,38 @@
                     ul += '</li>';
                     $("#zh").html(ul);
                 });
-                //默认选中状态
-                $('#active').addClass('active');
-                // 从本地存储中获取存储的id
-                var liClick = sessionStorage.getItem('liClick');
-                if (liClick) {
-                    //改变父控件背景颜色
-                    $('#' + liClick).css({
-                        "border-bottom": "2px solid #44a8f2"
+                /*点击字体下划线变蓝############################################################################################################*/
+                var oP = $(".NeiNav ul li");
+                $.ajax({
+                    url: '/infos/findNnd',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+                        nn = (data.tid);
+                        oP[nn].classList.add("active");
+                    },
+                    error: function () {
+                        alert("请求失败");
+                    }
+                });
+                $(".NeiNav ul li").click(function () {
+                    var n = $(".NeiNav ul li").index(this);
+                    $.ajax({
+                        url: '/infos/saveNnd',
+                        type: 'post',
+                        async: false,
+                        data: ({
+                            n: n
+                        }),
+                        dataType: 'json',
+                        success: function (data) {
+                        },
+                        error: function () {
+                            alert("请求失败");
+                        }
                     });
-                    //改变父控件中的字体颜色
-                    $('#' + liClick).css({
-                        "color": "#44a8f2"
-                    });
-                    //跳转后首页删除选中状态
-                    $('#active').removeClass('active');
-                }
-                var windowUrl = window.location.href; //获取当前url链接
-                var pathname = window.location.pathname;
-                var test1 = windowUrl.split("http://192.168.10.126:8181")[1];
-                //清除指定 sessionStorage
-                if(test1 == pathname) {
-                    sessionStorage.removeItem("liClick");
-                }
-                //点击时存储id
-                $('ul li').find('a').on('click', function () {
-                    sessionStorage.setItem('liClick', $(this).attr('id'));
-                })
+                });
+                /*##########################################################################################################################################*/
             }
         });
         var id = $("#tid").val();

@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>招聘职位-职位详情</title>
+    <title>最新消息-详情</title>
     <link rel="stylesheet" href="../css/siifi/amazeui.css"/>
     <link rel="stylesheet" href="../css/siifi/common.min.css"/>
-    <link rel="stylesheet" href="../css/siifi/recruit-details.css"/>
+    <link rel="stylesheet" href="../css/siifi/news.min.css"/>
     <style type="text/css">
         @font-face {
             font-family: fontawesome;
@@ -28,7 +28,7 @@
     <div class="layout-container">
         <div class="page-header">
             <div class="am-container">
-                <h1 class="page-header-title">职位详情</h1>
+                <h1 class="page-header-title">新闻详情</h1>
             </div>
         </div>
 
@@ -38,32 +38,38 @@
                     <li>
                         <a href="/infos/siifi.html">首页</a>
                     </li>
-                    <li class="am-active">招贤纳士</li>
-                    <li class="">
-                        <a href="/infos/recruitingPosition">招聘职位</a>
+                    <li>
+                        <a href="/infos/news">集团动态</a>
                     </li>
-                    <li class="am-active">职位详情</li>
+                    <li class="am-active">新闻详情</li>
                 </ol>
             </div>
         </div>
     </div>
 
-    <div class="section">
-        <div class="container">
-            <div class="WfTopNav">
-                <div class="title">招聘职位/<strong style="font-size: 16px;">职位详情</strong></div>
-                <div class="hen"></div>
-            </div>
-            <input type="hidden" id="tid" th:value="${invite.inviteId}">
-            <div class="text">
-                <div class="text-01" id="testcon">
+    <div class="section news-section">
+        <input type="hidden" id="tid" th:value="${dynamic.dynamicId}">
+        <div class="container" style="padding: 0px 10px 0px 10px;">
+            <div class="article" th:inline="text">
+                <header class="article--header">
+                    <h2>[[${dynamic.dynamicName}]]</h2>
+                    <ul class="article--meta">
+                        <li class="article--meta_item"><i class="am-icon-calendar"></i>[[${dynamic.sysDate}]]</li>
+                    </ul>
+                </header>
+                <div class="article--content" style="padding-left: 45px; padding-right: 45px;">
+                    <!--新闻内容-->
+                    <p id="testcon"></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!--===========布局页脚================-->
+<!--联系方式-->
+<div class="contact"></div>
+<!--联系方式-->
+
 <!--底部导航-->
 <div class="footerpage"></div>
 <!--底部导航-->
@@ -71,19 +77,23 @@
 <script src="../js/siifi/jquery-2.1.0.js" charset="utf-8"></script>
 <script src="../js/siifi/amazeui.js" charset="utf-8"></script>
 <script src="../js/siifi/common.js" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
 </body>
 <script>
+    var ue = UE.getEditor('editor');
     $(function () {
         var id = $("#tid").val();
         $.ajax({
-            url: '/infos/findInviteByIds',
+            url: '/infos/findDynamicByIds',
             type: 'get',
             data: ({
-                inviteId: id,
+                dynamicId: id,
             }),
             dataType: 'json',
             success: function (data) {
-                $("#testcon").html(data.inviteText);
+                $("#testcon").html(data.content);
                 UE.getEditor('editor').execCommand('insertHtml', $('#testcon').html());
             }
         })

@@ -111,7 +111,6 @@
             var file = $('#file')[0].files[0];
             var imgStr = /\.(jpg|jpeg|png|bmp|BMP|JPG|PNG|JPEG)$/;
             var imagSize = file.size;
-            alert(imagSize);
             if (!imgStr.test(file.name)) {
                 alert("文件必须为图片类型");
             }

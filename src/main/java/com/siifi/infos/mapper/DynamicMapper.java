@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 @Mapper
 public interface DynamicMapper {
-    @Select("select DYNAMIC_ID,DYNAMIC_NAME,PERSON_NAME,SYS_DATE,CONTENT,SHOU from sys_dynamic")
+    @Select("select DYNAMIC_ID,DYNAMIC_NAME,PERSON_NAME,SYS_DATE,CONTENT,SHOU,IMAGE_PATH from sys_dynamic")
     public List<Dynamic> listAll();
     public Dynamic findById(int dynamicId);
     public void save(Dynamic dynamic);

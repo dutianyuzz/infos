@@ -83,7 +83,7 @@ public class HoneyImageController {
     @RequestMapping(value = "honey/lists", method = RequestMethod.GET)
     @ResponseBody
     public PageInfo<Honey> getHoney(@RequestParam int pageNum) {
-        PageHelper.startPage(pageNum,6);
+        PageHelper.startPage(pageNum,8);
         List<Honey> honeys=honeyMapper.listAll();
         PageInfo<Honey> pageInfo=new PageInfo<>(honeys);
         return pageInfo;

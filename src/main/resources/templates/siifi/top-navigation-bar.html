@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<style type="text/css">
+    @font-face {
+        font-family: fontawesome;
+        src: url(../fonts/fontawesome-webfont.ttf), url(../fonts/fontawesome-webfont.woff)
+    }
+</style>
 <!--===========布局标题================-->
 <div class="layout-header am-hide-sm-only">
     <!--顶部开始-->
@@ -89,23 +95,23 @@
                         <!-- 启动子菜单-->
                         <ul class="sub-menu">
                             <li class="menu-item">
-                                <a th:href="@{'/infos/intelligentIndustry?id='+${box.intellId}}">智能产业</a>
+                                <a th:href="@{'/infos/intelligentIndustry?id='+${box.intellId}}" id="a_07">智能产业</a>
                             </li>
                             <li class="menu-item">
-                                <a th:href="@{'/infos/industryEcology?id='+${box.zoologyId}}">生态产业</a>
+                                <a th:href="@{'/infos/industryEcology?id='+${box.zoologyId}}" id="a_08">生态产业</a>
                             </li>
                             <li class="menu-item">
-                                <a th:href="@{'/infos/industryMedia?id='+${box.mediaId}}">文化传媒</a>
+                                <a th:href="@{'/infos/industryMedia?id='+${box.mediaId}}" id="a_09">文化传媒</a>
                             </li>
                             <li class="menu-item">
-                                <a th:href="@{'/infos/industryEducation?id='+${box.cultivateId}}">教育培训</a>
+                                <a th:href="@{'/infos/industryEducation?id='+${box.cultivateId}}" id="a_091">教育培训</a>
                             </li>
                         </ul>
                         <!-- 子菜单结束-->
                     </li>
 
                     <li>
-                        <a href="news.html">集团动态</a>
+                        <a href="/infos/news">集团动态</a>
                     </li>
 
                     <li>
@@ -199,23 +205,24 @@
                                     <a href="#" class="">产品中心</a>
                                     <ul class="am-menu-sub am-collapse ">
                                         <li class="menu-item">
-                                            <a th:href="@{'/infos/industryIntelligent?id='+${box.intellId}}" 智能产业</a>
+                                            <a th:href="@{'/infos/intelligentIndustry?id='+${box.intellId}}" id="t_01">智能产业</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a th:href="@{'/infos/industryEcology?id='+${box.zoologyId}}">生态产业</a>
+                                            <a th:href="@{'/infos/industryEcology?id='+${box.zoologyId}}"
+                                               id="t_02">生态产业</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a th:href="@{'/infos/industryMedia?id='+${box.mediaId}}">文化传媒</a>
+                                            <a th:href="@{'/infos/industryMedia?id='+${box.mediaId}}" id="t_03">文化传媒</a>
 
                                         </li>
                                         <li class="menu-item">
-                                            <a th:href="@{'/infos/industryEducation?id='+${box.cultivateId}}">教育培训</a>
+                                            <a th:href="@{'/infos/industryEducation?id='+${box.cultivateId}}" id="t_04">教育培训</a>
                                         </li>
                                     </ul>
                                 </li>
 
                                 <li class="">
-                                    <a href="news.html" class="">集团动态</a>
+                                    <a href="/infos/news" class="">集团动态</a>
                                 </li>
 
                                 <li class="am-parent">
@@ -270,11 +277,11 @@
                                 </li>
 
                                 <li class="">
-                                    <a href="html/login.html" class="">登录</a>
+                                    <a href="/infos/login.html" class="">登录</a>
                                 </li>
 
                                 <li class="">
-                                    <a href="html/register.html" class="">注册</a>
+                                    <a href="/infos/register.html" class="">注册</a>
                                 </li>
                             </ul>
 
@@ -303,9 +310,148 @@
                 $.each(data, function (index, item) {
                     a += '<li class="menu-item"><a href="/infos/generalDetailsPage?id=' + item.columnId + '">' + item.columnName + '</a></li>';
                     $("#one").html(a);
+                    $("#two").html(a);
                 });
                 $("#one").append('<li class="menu-item"><a href="/infos/enterpriseQualification">企业资质</a></li>');
+                $("#two").append('<li class="menu-item"><a href="/infos/enterpriseQualification">企业资质</a></li>');
             }
         });
+        /*每次点击 记录控制字体 下划线变蓝得 n值变为0 ############################################################################################################*/
+        $("#a_07").click(function () {
+            $.ajax({
+                url: '/infos/saveNna',
+                type: 'post',
+                async: false,
+                data: ({
+                    n: 0
+                }),
+                dataType: 'json',
+                success: function (data) {
+                },
+                error: function () {
+                    alert("请求失败");
+                }
+            });
+        });
+
+        $("#a_08").click(function () {
+            $.ajax({
+                url: '/infos/saveNnb',
+                type: 'post',
+                async: false,
+                data: ({
+                    n: 0
+                }),
+                dataType: 'json',
+                success: function (data) {
+                },
+                error: function () {
+                    alert("请求失败");
+                }
+            });
+        });
+
+        $("#a_09").click(function () {
+            $.ajax({
+                url: '/infos/saveNnc',
+                type: 'post',
+                async: false,
+                data: ({
+                    n: 0
+                }),
+                dataType: 'json',
+                success: function (data) {
+                },
+                error: function () {
+                    alert("请求失败");
+                }
+            });
+        });
+
+        $("#a_091").click(function () {
+            $.ajax({
+                url: '/infos/saveNnd',
+                type: 'post',
+                async: false,
+                data: ({
+                    n: 0
+                }),
+                dataType: 'json',
+                success: function (data) {
+                },
+                error: function () {
+                    alert("请求失败");
+                }
+            });
+        });
+
+        $("#t_01").click(function () {
+            $.ajax({
+                url: '/infos/saveNna',
+                type: 'post',
+                async: false,
+                data: ({
+                    n: 0
+                }),
+                dataType: 'json',
+                success: function (data) {
+                },
+                error: function () {
+                    alert("请求失败");
+                }
+            });
+        });
+
+        $("#t_02").click(function () {
+            $.ajax({
+                url: '/infos/saveNnb',
+                type: 'post',
+                async: false,
+                data: ({
+                    n: 0
+                }),
+                dataType: 'json',
+                success: function (data) {
+                },
+                error: function () {
+                    alert("请求失败");
+                }
+            });
+        });
+
+        $("#t_03").click(function () {
+            $.ajax({
+                url: '/infos/saveNnc',
+                type: 'post',
+                async: false,
+                data: ({
+                    n: 0
+                }),
+                dataType: 'json',
+                success: function (data) {
+                },
+                error: function () {
+                    alert("请求失败");
+                }
+            });
+        });
+
+        $("#t_04").click(function () {
+            $.ajax({
+                url: '/infos/saveNnd',
+                type: 'post',
+                async: false,
+                data: ({
+                    n: 0
+                }),
+                dataType: 'json',
+                success: function (data) {
+                },
+                error: function () {
+                    alert("请求失败");
+                }
+            });
+        });
+        /*############################################################################################################################################*/
     });
 </script>

@@ -14,6 +14,10 @@
             color: #fff;
             padding: 110px 0 160px;
         }
+        @font-face {
+            font-family: fontawesome;
+            src: url(../fonts/fontawesome-webfont.ttf), url(../fonts/fontawesome-webfont.woff)
+        }
     </style>
 </head>
 
@@ -46,7 +50,7 @@
 
     <div class="section">
         <div class="container">
-            <div class="WfTopNav"th:inline="text">
+            <div class="WfTopNav" th:inline="text">
                 <input type="hidden" th:value="${intell.intellId}" id="tid"/>
                 <div class="title">智能产业/<strong style="font-size: 16px;">[[${intell.intellName}]]</strong></div>
                 <div class="hen"></div>
@@ -76,11 +80,12 @@
         $.ajax({
             url: '/infos/intell/lists',
             type: 'get',
+            async: false,
             dataType: 'json',
             success: function (data) {
                 var ul = '';
                 $.each(data, function (index, item) {
-                    var tid=index;
+                    var tid = index;
                     ul += '<li id="active">';
                     ul += '<a href="/infos/intelligentIndustry?id=' + item.intellId + '" id="test' + tid + '" ><span class="span1">' + item.intellName + '</span></a>';
                     ul += '</li>';
@@ -89,51 +94,45 @@
                 var zz;
                 zz = '<a href="/infos/intelligentClassicCase" id="wa_01"><span class="span1">典型案例</span></a>';
                 $("#zh").append('<li>' + zz + '</li>');
-
-                //默认选中状态
-                $('#active').addClass('active');
-                // $('#active').find("a").css({
-                //     "color": "#44a8f2",
-                //     "border-bottom": "2px solid #44a8f2"
-                // });
-                // 从本地存储中获取存储的id
-                var liClick = sessionStorage.getItem('liClick');
-                if(liClick) {
-                    //改变父控件背景颜色
-                    $('#' + liClick).css({
-                        "border-bottom": "2px solid #44a8f2"
-                    });
-                    //改变父控件中的字体颜色
-                    $('#' + liClick).css({
-                        "color": "#44a8f2"
-                    });
-                    //跳转后首页删除选中状态
-                    $('#active').removeClass('active');
-
-                    // $('#active').find("a").css({
-                    //     "color": "not specified",
-                    //     "border-bottom": "not specified"
-                    // });
-                }
-                var windowUrl = window.location.href; //获取当前url链接
-                var pathname = window.location.pathname;
-                var test1 = windowUrl.split("http://192.168.10.126:8181")[1];
-                //清除指定 sessionStorage
-                if(test1 == pathname) {
-                    sessionStorage.removeItem("liClick");
-                }
-                //点击时存储id
-                $('ul li').find('a').on('click', function() {
-                    sessionStorage.setItem('liClick', $(this).attr('id'));
+                /*点击字体下划线变蓝############################################################################################################*/
+                var oP = $(".NeiNav ul li");
+                $.ajax({
+                    url: '/infos/findNna',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+                        nn=(data.tid);
+                        oP[nn].classList.add("active");
+                    },
+                    error: function () {
+                        alert("请求失败");
+                    }
                 });
+                $(".NeiNav ul li").click(function() {
+                    var n = $(".NeiNav ul li").index(this);
+                    $.ajax({
+                        url: '/infos/saveNna',
+                        type: 'post',
+                        async: false,
+                        data:({
+                            n: n
+                        }),
+                        dataType: 'json',
+                        success: function (data) {
+                        },
+                        error: function () {
+                            alert("请求失败");
+                        }
+                    });
+                });
+                /*##########################################################################################################################################*/
             }
         });
-
         var id = $("#tid").val();
         $.ajax({
             url: '/infos/findIntells',
             type: 'get',
-            data:({
+            data: ({
                 intellId: id,
             }),
             dataType: 'json',
@@ -143,6 +142,50 @@
             }
         });
     });
+
+ /*   $(function () {
+        var le = $(".cmain li").length;
+        for (var i = 0; i < le; i++){
+            //点击时存储id
+            if (i == 0) {
+                $("#test0").css({
+                    "border-bottom": "2px solid #44a8f2",
+                    "color": "#44a8f2"
+                });
+            }
+        }
+        // 从本地存储中获取存储的id
+        var liClick = sessionStorage.getItem('liClick');
+        if (liClick) {
+            //改变父控件背景颜色
+            $('#' + liClick).parentsUntil("ul").css({
+                "border-bottom": "2px solid #44a8f2"
+            });
+            //改变父控件中的字体颜色
+            $('#' + liClick).parentsUntil("ul").find('a span').css({
+                "color": "#44a8f2"
+            });
+            //跳转后首页删除选中状态
+            $('#active').removeClass('active');
+            $("#test0").css({
+                "border-bottom": "not specified",
+                "color": "not specified"
+            });
+        }
+        var windowUrl = window.location.href; //获取当前url链接
+        var test0 = windowUrl.split("?")[0];
+        var test1 = test0.split("http://localhost:8181/infos/intelligentIndustry")[1];
+        var t = $(this).find('a').attr('href');
+        				alert(windowUrl + "     *************     " + t);
+        //清除指定 sessionStorage
+        if (test1 == t) {
+            sessionStorage.removeItem("liClick");
+        }
+        //点击时存储id
+        $('.cmain ul').find('a').on('click', function () {
+            sessionStorage.setItem('liClick', $(this).attr('id'));
+        });
+    });*/
 </script>
 
 </html>

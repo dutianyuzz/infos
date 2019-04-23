@@ -3,6 +3,7 @@ package com.siifi.infos.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.siifi.infos.entity.Dynamic;
+import com.siifi.infos.entity.Honey;
 import com.siifi.infos.mapper.DynamicMapper;
 import com.siifi.infos.service.dynamic.DynamicService;
 import org.springframework.stereotype.Controller;
@@ -39,7 +40,7 @@ public class DynamicController {
     }
 
     /**
-     * 添加职位
+     * 添加新闻
      * @param reqMap
      * @return
      */
@@ -50,12 +51,14 @@ public class DynamicController {
         String dynamicName=reqMap.get("dynamicName").toString();
         String personName=reqMap.get("personName").toString();
         String date=reqMap.get("date").toString();
+        String imagePath=reqMap.get("imagePath").toString();
         String contentText=reqMap.get("contentText").toString();
         int shou=0;
         Dynamic dynamic=new Dynamic();
         dynamic.setDynamicName(dynamicName);
         dynamic.setPersonName(personName);
         dynamic.setSysDate(date);
+        dynamic.setImagePath(imagePath);
         dynamic.setContent(contentText);
         dynamic.setShou(shou);
         dynamicService.saveDynamic(dynamic);
@@ -73,7 +76,7 @@ public class DynamicController {
     @RequestMapping(value = "dynamic/lists",method = RequestMethod.GET)
     @ResponseBody
     public PageInfo<Dynamic> getInvite(@RequestParam int pageNum){
-        PageHelper.startPage(pageNum, 3);
+        PageHelper.startPage(pageNum, 6);
         List<Dynamic> dynamics=dynamicMapper.listAll();
         PageInfo<Dynamic> pageInfo=new PageInfo<>(dynamics);
         return pageInfo;
@@ -93,6 +96,19 @@ public class DynamicController {
     }
 
     /**
+     * 根据id查封面
+     * @param id
+     * @return
+     */
+    @RequestMapping("/findDynamicImage")
+    public ModelAndView findDynamicImage(Integer id) {
+        Dynamic dynamic=dynamicService.getDynamicById(id);
+        ModelAndView model = new ModelAndView("dynamic_image");
+        model.addObject("dynamic", dynamic);
+        return model;
+    }
+
+    /**
      * 根据id查数据(富文本编辑器)
      * @param id
      * @return
@@ -106,7 +122,7 @@ public class DynamicController {
     }
 
     /**
-     * 修改职位
+     * 修改新闻(不修改封面)
      * @param reqMap
      * @return
      */
@@ -125,6 +141,35 @@ public class DynamicController {
         dynamic.setDynamicName(dynamicName);
         dynamic.setPersonName(personName);
         dynamic.setSysDate(date);
+        dynamic.setContent(contentText);
+        dynamicService.editDynamic(dynamic);
+        map.put("code","1");
+        map.put("message","保存成功");
+        return map;
+    }
+
+    /**
+     * 修改新闻(包括封面修改)
+     * @param reqMap
+     * @return
+     */
+    @RequestMapping(value = "/editDynamicImage",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> editDynamicImage(@RequestBody Map<String, Object> reqMap){
+        Map<String,Object> map = new HashMap<String,Object>();
+        String id=reqMap.get("dynamicId").toString();
+        int dynamicId=Integer.parseInt(id);
+        String dynamicName=reqMap.get("dynamicName").toString();
+        String personName=reqMap.get("personName").toString();
+        String date=reqMap.get("date").toString();
+        String imagePath=reqMap.get("imagePath").toString();
+        String contentText=reqMap.get("contentText").toString();
+        Dynamic dynamic=new Dynamic();
+        dynamic.setDynamicId(dynamicId);
+        dynamic.setDynamicName(dynamicName);
+        dynamic.setPersonName(personName);
+        dynamic.setSysDate(date);
+        dynamic.setImagePath(imagePath);
         dynamic.setContent(contentText);
         dynamicService.editDynamic(dynamic);
         map.put("code","1");

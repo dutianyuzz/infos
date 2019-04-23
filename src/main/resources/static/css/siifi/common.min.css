@@ -256,7 +256,7 @@
 
 @font-face {
 	font-family: fontawesome;
-	src: url(../fonts/fontawesome-webfont.ttf), url(../fonts/fontawesome-webfont.woff)
+	src: url(../css/fonts/fontawesome-webfont.ttf), url(../css/fonts/fontawesome-webfont.woff)
 }
 
 .page-header {

@@ -4,6 +4,7 @@
     <title>修改新闻</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/laydate.css"/>
+    <link rel="stylesheet" href="/css/layui.css"/>
     <link rel="stylesheet" href="/css/columnsave.css">
     <style type="text/css">
         .select-date {
@@ -41,6 +42,7 @@
             margin-top: 20px;
             margin-left: 90px;
         }
+
         .btnReturn {
             display: inline-block;
             height: 38px;
@@ -66,12 +68,14 @@
     <div class="form-row">
         <input type="hidden" id="tid" th:value="${dynamic.dynamicId}">
         <div class="field-label"><label for="field1">新闻标题:</label></div>
-        <div class="field-widget"><input name="field1" id="dynamicName" class="required" th:value="${dynamic.dynamicName}">
+        <div class="field-widget"><input name="field1" id="dynamicName" class="required"
+                                         th:value="${dynamic.dynamicName}">
         </div>
     </div>
     <div class="form-row">
         <div class="field-label"><label for="field1">发表人:</label></div>
-        <div class="field-widget"><input name="field1" id="personName" class="required" th:value="${dynamic.personName}">
+        <div class="field-widget"><input name="field1" id="personName" class="required"
+                                         th:value="${dynamic.personName}">
         </div>
     </div>
     <div class="form-row">
@@ -106,6 +110,16 @@
                 <ul class="day-tabel"></ul>
             </div>
         </div>
+    </div>
+    <div class="form-row">
+        <div class="field-label"><label for="field1">修改封面:</label></div>
+        <div class="field-widget"><input id="file" type="file" name="file" class="upImg"/></div>
+        <div style="color: red">[5MB以下]</div>
+    </div>
+    <div class="form-row">
+        <div class="field-label"><label for="field1">封面预览:</label></div>
+        <a th:href="@{'/infos/findDynamicImage?id='+${dynamic.dynamicId}}" target="_blank"
+           class="layui-btn layui-btn-normal layui-btn-mini">预览</a>
     </div>
     <div id="btns" class="form-row">
         <code id="testcon" style="display:none;"></code>
@@ -143,32 +157,110 @@
         var dynamicName = $("#dynamicName").val();
         var personName = $("#personName").val();
         var date = $("#laydateInput").val();
-        $.ajax({
-            url: '/infos/editDynamic',
-            type: 'post',
-            contentType: "application/json;charset=utf-8",
-            data: JSON.stringify({
-                dynamicId: dynamicId,
-                dynamicName: dynamicName,
-                personName: personName,
-                date: date,
-                contentText: contentText,
-            }),
-            dataType: 'json',
-            success: function (data) {
-                var code = (data.code);
-                if (code == 1) {
-                    alert(data.message);
-                    window.location.href = "/infos/dynamicList";
+        var zz = $(".upImg").val();
+        if (dynamicName == "" && dynamicName.length == 0 && personName == "" && personName.length == 0) {
+            alert("请填写内容！");
+        }
+        else {
+            var imgPath = "";
+            //图片上传
+            if (zz != "" && zz.length > 0) {
+                var formData = new FormData();
+                var file = $('#file')[0].files[0];
+                var imgStr = /\.(jpg|jpeg|png|bmp|BMP|JPG|PNG|JPEG)$/;
+                var imagSize = file.size;
+                if (!imgStr.test(file.name)) {
+                    alert("文件必须为图片类型");
                 }
-                if (code == 0) {
-                    alert(data.message);
+                if (imagSize > (1024 * 1024 * 5)) {
+                    alert("图片大小超过5MB");
                 }
-            },
-            error: function () {
-                alert("请求失败");
+                else {
+                    formData.append('file', file);
+                    $.ajax({
+                        url: '/infos/fileUpload',
+                        type: 'post',
+                        cache: false,
+                        async: false,
+                        dataType: 'json',
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            var code = (data.code);
+                            if (code == 0) {
+                            }
+                            if (code == 1) {
+                                imgPath = (data.imgPath);
+                            }
+                        },
+                        error: function () {
+                            alert("图片上传失败");
+                        }
+                    });
+                }
             }
-        });
+            if (imgPath != "" && imgPath.length > 0) {
+                //数据上传 改变图片
+                $.ajax({
+                    url: '/infos/editDynamicImage',
+                    type: 'post',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        dynamicId: dynamicId,
+                        dynamicName: dynamicName,
+                        personName: personName,
+                        date: date,
+                        imagePath: imgPath,
+                        contentText: contentText,
+                    }),
+                    dataType: 'json',
+                    success: function (data) {
+                        var code = (data.code);
+                        if (code == 1) {
+                            alert(data.message);
+                            window.location.href = "/infos/dynamicList";
+                        }
+                        if (code == 0) {
+                            alert(data.message);
+                        }
+                    },
+                    error: function () {
+                        alert("请求失败");
+                    }
+                });
+            }
+            if (imgPath == "" && imgPath.length == 0) {
+                alert("asdasd");
+                //数据上传 不改变图片
+                $.ajax({
+                    url: '/infos/editDynamic',
+                    type: 'post',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        dynamicId: dynamicId,
+                        dynamicName: dynamicName,
+                        personName: personName,
+                        date: date,
+                        contentText: contentText,
+                    }),
+                    dataType: 'json',
+                    success: function (data) {
+                        var code = (data.code);
+                        if (code == 1) {
+                            alert(data.message);
+                            window.location.href = "/infos/dynamicList";
+                        }
+                        if (code == 0) {
+                            alert(data.message);
+                        }
+                    },
+                    error: function () {
+                        alert("请求失败");
+                    }
+                });
+            }
+        }
     });
     $("#btn-return").click(function () {
         window.location.href = "/infos/dynamicList";

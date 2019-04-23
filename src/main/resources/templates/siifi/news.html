@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>集团动态</title>
+		<link rel="stylesheet" href="../css/siifi/amazeui.css" />
+		<link rel="stylesheet" href="../css/siifi/common.min.css" />
+		<link rel="stylesheet" href="../css/page/pagination.css"/>
+		<link rel="stylesheet" href="../css/siifi/news.min.css" />
+		<style>
+			.dynamicName{
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				padding: 10px;
+			}
+			@font-face {
+				font-family: fontawesome;
+				src: url(../fonts/fontawesome-webfont.ttf), url(../fonts/fontawesome-webfont.woff)
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="layout">
+
+			<!--顶部导航 -->
+			<div class="headerpage"></div>
+			<!--顶部导航 over-->
+
+			<!--===========layout-container================-->
+			<div class="layout-container">
+				<div class="page-header">
+					<div class="am-container">
+						<h1 class="page-header-title">集团动态</h1>
+					</div>
+				</div>
+
+				<div class="breadcrumb-box">
+					<div class="am-container">
+						<ol class="am-breadcrumb">
+							<li>
+								<a href="/infos/siifi.html">首页</a>
+							</li>
+							<li class="am-active">集团动态</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+
+			<div class="section">
+				<div class="container">
+					<div class="section--header">
+						<h2 class="section--title">最新消息</h2>
+					</div>
+
+					<div class="news-contaier">
+						<div class="blog">
+							<div class="am-g" id="all">
+								<!--内容-->
+							</div>
+							<!--分页-->
+							<div class="col-lg-12" align="right">
+								<ul id="mypage"></ul>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<!--联系方式-->
+			<div class="contact"></div>
+			<!--联系方式-->
+		</div>
+
+		<!--底部导航-->
+		<div class="footerpage"></div>
+		<!--底部导航-->
+		<script src="../js/siifi/jquery-2.1.0.js" charset="utf-8"></script>
+		<script src="../js/siifi/amazeui.js" charset="utf-8"></script>
+		<script src="../js/page/bootstrap-paginator.min.js"></script>
+		<script src="../js/siifi/common.js" charset="utf-8"></script>
+	</body>
+<script>
+    $(function() {
+        pageStart();
+        function pageStart() {
+            $.ajax({
+                type : "get",
+                url : "/infos/dynamic/lists",
+                dataType : "json",
+                data : {pageNum : 1},
+                success : function(data) {
+                    appendHtml(data.list);
+                    var options = {
+                        bootstrapMajorVersion : 3,
+                        currentPage : data.pageNum,
+                        totalPages : data.pages,
+                        numberOfPages : data.pageSize,
+                        numberOfPages:10,
+                        itemTexts : function(type, page, current) {
+                            switch (type) {
+                                case "first":
+                                    return "首页";
+                                case "prev":
+                                    return "上一页";
+                                case "next":
+                                    return "下一页";
+                                case "last":
+                                    return "末页";
+                                case "page":
+                                    return page;
+                            }
+                        },
+                        onPageClicked : function(event, originalEvent, type, page) {
+                            $("#all").html("");
+                            $.ajax({
+                                url : "/infos/dynamic/lists",
+                                type : "get",
+                                dataType : "json",
+                                data : {"pageNum" : page},
+                                success : function(data) {
+                                    appendHtml(data.list);
+                                }
+                            });
+                        }
+                    };
+                    $('#mypage').bootstrapPaginator(options);
+                }
+            });
+        }
+        function appendHtml(list) {
+            for (var i = 0; i < list.length; i++) {
+                var id=list[i].dynamicId;
+                var html = '';
+                html +='<div class="am-u-lg-4 am-u-md-6  am-u-end" >';
+                html +='<div class="article">';
+                html += '<div class="article-img">';
+                html +='<img src='+ list[i].imagePath + ' alt="" />';
+                html +='</div>';
+                html +='<div class="article-header">';
+                html +='<h2><div class="dynamicName">' + list[i].dynamicName;
+                html +='</a></div>';
+                html +='<ul class="article--meta">';
+                html +='<li class="article--meta_item -date">' + list[i].sysDate;
+                html +='</li>';
+                html +='</ul>';
+                html +='</div>';
+                html +='<div class="article--footer">';
+                html +='<a href="/infos/findDynamicByIdGw?id='+ id +'" class="link">'+"更多";
+                html +='</a>';
+                html +='</div>';
+                html +='</div>';
+                html +='</div>';
+                $("#all").append(html);
+            }
+        }
+    });
+</script>
+</html>

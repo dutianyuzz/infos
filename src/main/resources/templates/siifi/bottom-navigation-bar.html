@@ -1,76 +1,98 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<style type="text/css">
+    @font-face {
+        font-family: fontawesome;
+        src: url(../fonts/fontawesome-webfont.ttf), url(../fonts/fontawesome-webfont.woff)
+    }
+
+    .layout-footer .footer {
+        width: 100%;
+        background: url(../images/siifi/footer.jpg);
+        background-size: cover;
+        position: relative
+    }
+</style>
+
 <div class="layout-footer">
-	<div class="footer">
-		<div style="background-color:#10293C" class="footer--bg"></div>
-		<div class="footer--inner">
-			<div class="container">
-				<div class="footer_main">
-					<div class="am-g">
-						<div class="am-u-md-3 ">
-							<div class="footer_main--column">
-								<strong class="footer_main--column_title">关于我们</strong>
-								<ul class="footer_navigation">
-									<li class="footer_navigation--item">
-										<a href="/infos/enterpriseQualification" class="footer_navigation--link">职业资质</a>
-									</li>
-									<li class="footer_navigation--item">
-										<a href="#" class="footer_navigation--link">公司新闻</a>
-									</li>
-								</ul>
-							</div>
-						</div>
+    <div class="footer">
+        <div style="background-color:#10293C" class="footer--bg"></div>
+        <div class="footer--inner">
+            <div class="container">
+                <div class="footer_main">
+                    <div class="am-g">
+                        <div class="am-u-md-3 ">
+                            <div class="footer_main--column">
+                                <strong class="footer_main--column_title">关于我们</strong>
+                                <ul class="footer_navigation">
+                                    <li class="footer_navigation--item">
+                                        <a href="/infos/enterpriseQualification"
+                                           class="footer_navigation--link">职业资质</a>
+                                    </li>
+                                    <li class="footer_navigation--item">
+                                        <a href="/infos/news" class="footer_navigation--link">公司新闻</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
-						<div class="am-u-md-3 ">
-							<div class="footer_main--column">
-								<strong class="footer_main--column_title">产品中心</strong>
-								<ul class="footer_navigation">
-									<li class="footer_navigation--item">
-										<a th:href="@{'/infos/intelligentIndustry?id='+${box.intellId}}" class="footer_navigation--link">智能产业</a>
-									</li>
-									<li class="footer_navigation--item">
-										<a th:href="@{'/infos/industryEcology?id='+${box.zoologyId}}" class="footer_navigation--link">生态产业</a>
-									</li>
-									<li class="footer_navigation--item">
-										<a th:href="@{'/infos/industryMedia?id='+${box.mediaId}}" class="footer_navigation--link">文化传媒</a>
-									</li>
-									<li class="footer_navigation--item">
-										<a th:href="@{'/infos/industryEducation?id='+${box.cultivateId}}" class="footer_navigation--link">教育培训</a>
-									</li>
-								</ul>
-							</div>
-						</div>
+                        <div class="am-u-md-3 ">
+                            <div class="footer_main--column">
+                                <strong class="footer_main--column_title">产品中心</strong>
+                                <ul class="footer_navigation">
+                                    <li class="footer_navigation--item">
+                                        <a th:href="@{'/infos/intelligentIndustry?id='+${box.intellId}}"
+                                           class="footer_navigation--link">智能产业</a>
+                                    </li>
+                                    <li class="footer_navigation--item">
+                                        <a th:href="@{'/infos/industryEcology?id='+${box.zoologyId}}"
+                                           class="footer_navigation--link">生态产业</a>
+                                    </li>
+                                    <li class="footer_navigation--item">
+                                        <a th:href="@{'/infos/industryMedia?id='+${box.mediaId}}"
+                                           class="footer_navigation--link">文化传媒</a>
+                                    </li>
+                                    <li class="footer_navigation--item">
+                                        <a th:href="@{'/infos/industryEducation?id='+${box.cultivateId}}"
+                                           class="footer_navigation--link">教育培训</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
-						<div class="am-u-md-3 ">
-							<div class="footer_main--column">
-								<strong class="footer_main--column_title">技术支持</strong>
-								<ul class="footer_navigation">
-									<li class="footer_navigation--item">
-										<a href="#" class="footer_navigation--link">企业软件研发白皮书</a>
-									</li>
-									<li class="footer_navigation--item">
-										<a href="#" class="footer_navigation--link">企业弱电工程白皮书</a>
-									</li>
-									<li class="footer_navigation--item">
-										<a href="#" class="footer_navigation--link">企业战略发展白皮书</a>
-									</li>
-								</ul>
-							</div>
-						</div>
+                        <div class="am-u-md-3 ">
+                            <div class="footer_main--column">
+                                <strong class="footer_main--column_title">技术支持</strong>
+                                <ul class="footer_navigation">
+                                    <li class="footer_navigation--item">
+                                        <a href="#" class="footer_navigation--link">企业软件研发白皮书</a>
+                                    </li>
+                                    <li class="footer_navigation--item">
+                                        <a href="#" class="footer_navigation--link">企业弱电工程白皮书</a>
+                                    </li>
+                                    <li class="footer_navigation--item">
+                                        <a href="#" class="footer_navigation--link">企业战略发展白皮书</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
-						<div class="am-u-md-3 ">
-							<div class="footer_main--column">
-								<strong class="footer_main--column_title">联系详情</strong>
-								<ul class="footer_contact_info">
-									<li class="footer_contact_info--item"><i class="am-icon-phone"></i><span>服务专线：(86)10 — 6783 7666</span></li>
-									<li class="footer_contact_info--item"><i class="am-icon-envelope-o"></i><span>service@siifi.cn</span></li>
-									<li class="footer_contact_info--item"><i class="am-icon-map-marker"></i><span>北京市北京经济技术开发区宏达北路7号2幢四层</span></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <div class="am-u-md-3 ">
+                            <div class="footer_main--column">
+                                <strong class="footer_main--column_title">联系详情</strong>
+                                <ul class="footer_contact_info">
+                                    <li class="footer_contact_info--item"><i class="am-icon-phone"></i><span>服务专线：(86)10 — 6783 7666</span>
+                                    </li>
+                                    <li class="footer_contact_info--item"><i class="am-icon-envelope-o"></i><span>service@siifi.cn</span>
+                                    </li>
+                                    <li class="footer_contact_info--item"><i class="am-icon-map-marker"></i><span>北京市北京经济技术开发区宏达北路7号2幢四层</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -88,6 +88,11 @@
         </div>
     </div>
     <div class="form-row">
+        <div class="field-label"><label for="field1">上传封面:</label></div>
+        <div class="field-widget"><input id="file" type="file" name="file" class="upImg"/></div>
+        <div style="color: red">[5MB以下]</div>
+    </div>
+    <div class="form-row">
     </div>
     <div id="btns" class="form-row">
         <code id="testcon" style="display:none;"></code>
@@ -105,14 +110,53 @@
 <script type="text/javascript">
     var ue = UE.getEditor('editor');
     $("#btn").click(function () {
+        var imgPath = "";
         var contentText = ue.getContent();
         var dynamicName = $("#dynamicName").val();
         var personName = $("#personName").val();
         var date = $("#laydateInput").val();
-        if (dynamicName == "" && dynamicName.length == 0 && personName == "" && personName.length == 0) {
+        var zz = $(".upImg").val();
+        if (dynamicName == "" && dynamicName.length == 0 && personName == "" && personName.length == 0 && zz == "" || zz.length == 0) {
             alert("请填写内容！");
         }
         else {
+            //图片上传
+            var formData = new FormData();
+            var file = $('#file')[0].files[0];
+            var imgStr = /\.(jpg|jpeg|png|bmp|BMP|JPG|PNG|JPEG)$/;
+            var imagSize = file.size;
+            if (!imgStr.test(file.name)) {
+                alert("文件必须为图片类型");
+            }
+            if (imagSize > (1024 * 1024 * 5)) {
+                alert("图片大小超过5MB");
+            }
+            else {
+                formData.append('file', file);
+                $.ajax({
+                    url: '/infos/fileUpload',
+                    type: 'post',
+                    cache: false,
+                    async: false,
+                    dataType: 'json',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        var code = (data.code);
+                        if (code == 0) {
+                            alert(data.message);
+                        }
+                        if (code == 1) {
+                            imgPath = (data.imgPath);
+                        }
+                    },
+                    error: function () {
+                        alert("图片上传失败");
+                    }
+                });
+            }
+            //数据上传
             $.ajax({
                 url: '/infos/saveDynamic',
                 type: 'post',
@@ -121,6 +165,7 @@
                     dynamicName: dynamicName,
                     personName: personName,
                     date: date,
+                    imagePath: imgPath,
                     contentText: contentText,
                 }),
                 dataType: 'json',

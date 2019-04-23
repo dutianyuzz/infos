@@ -78,7 +78,7 @@ public class InviteController {
     @RequestMapping(value = "invite/lists",method = RequestMethod.GET)
     @ResponseBody
     public PageInfo<Invite> getInvite(@RequestParam int pageNum){
-        PageHelper.startPage(pageNum, 3);
+        PageHelper.startPage(pageNum, 8);
         List<Invite> invites=inviteMapper.listAll();
         PageInfo<Invite> pageInfo=new PageInfo<>(invites);
         return pageInfo;

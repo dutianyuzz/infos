@@ -6,11 +6,11 @@
         </select>-->
 
     <select id="findById" resultType="com.siifi.infos.entity.Dynamic" parameterType="int">
-        select DYNAMIC_ID,DYNAMIC_NAME,PERSON_NAME,SYS_DATE,CONTENT,SHOU from sys_dynamic where DYNAMIC_ID=#{dynamicId};
+        select DYNAMIC_ID,DYNAMIC_NAME,PERSON_NAME,SYS_DATE,CONTENT,SHOU,IMAGE_PATH from sys_dynamic where DYNAMIC_ID=#{dynamicId};
     </select>
 
     <insert id="save" parameterType="com.siifi.infos.entity.Dynamic">
-        insert into sys_dynamic (DYNAMIC_NAME,PERSON_NAME,SYS_DATE,CONTENT,SHOU) values (#{dynamicName},#{personName},#{sysDate},#{content},#{shou});
+        insert into sys_dynamic (DYNAMIC_NAME,PERSON_NAME,SYS_DATE,CONTENT,SHOU,IMAGE_PATH) values (#{dynamicName},#{personName},#{sysDate},#{content},#{shou},#{imagePath});
     </insert>
 
     <update id="edit" parameterType="com.siifi.infos.entity.Dynamic">
@@ -24,6 +24,9 @@
             </if>
             <if test="sysDate != null and sysDate != ''">
                 SYS_DATE=#{sysDate},
+            </if>
+            <if test="imagePath != null and imagePath != ''">
+                IMAGE_PATH=#{imagePath},
             </if>
             <if test="content != null and content != ''">
                 CONTENT=#{content},

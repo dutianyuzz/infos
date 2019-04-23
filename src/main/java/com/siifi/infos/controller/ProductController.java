@@ -85,7 +85,7 @@ public class ProductController {
     @RequestMapping(value = "product/lists", method = RequestMethod.GET)
     @ResponseBody
     public PageInfo<Product> getProduct(@RequestParam int pageNum) {
-        PageHelper.startPage(pageNum,6);
+        PageHelper.startPage(pageNum,8);
         List<Product> products = productMapper.listAll();
         PageInfo<Product> productPageInfo=new PageInfo<>(products);
         return productPageInfo;

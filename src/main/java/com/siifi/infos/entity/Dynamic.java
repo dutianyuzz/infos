@@ -9,6 +9,7 @@ public class Dynamic implements Serializable {
     private String sysDate;
     private String content;
     private int shou;
+    private String imagePath;
 
     public int getDynamicId() {
         return dynamicId;
@@ -56,6 +57,13 @@ public class Dynamic implements Serializable {
 
     public void setShou(int shou) {
         this.shou = shou;
+    }
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
 }

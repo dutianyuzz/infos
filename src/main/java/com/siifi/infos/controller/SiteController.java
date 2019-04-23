@@ -3,6 +3,7 @@ package com.siifi.infos.controller;
 import com.siifi.infos.entity.*;
 import com.siifi.infos.service.column.ColumnService;
 import com.siifi.infos.service.cultivate.CultivateService;
+import com.siifi.infos.service.dynamic.DynamicService;
 import com.siifi.infos.service.intell.IntellService;
 import com.siifi.infos.service.invite.InviteService;
 import com.siifi.infos.service.media.MediaService;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "infos")
@@ -30,7 +33,10 @@ public class SiteController {
     private CultivateService cultivateService;
     @Resource
     private InviteService inviteService;
-
+    @Resource
+    private DynamicService dynamicService;
+    @Resource
+    private TidService tidService;
     /**
      * 首页
      *
@@ -265,5 +271,149 @@ public class SiteController {
         ModelAndView model = new ModelAndView("/siifi/recruit-details");
         model.addObject("invite", invite);
         return model;
+    }
+
+    /**
+     * 跳转集团动态新闻页面
+     * @return
+     */
+    @RequestMapping("/news")
+    public String news(){
+        return "/siifi/news";
+    }
+    /**
+     * 根据新闻id查数据(跳转集团动态新闻（详情页面）)
+     * @param id
+     * @return
+     */
+    @RequestMapping("/findDynamicByIdGw")
+    public ModelAndView findDynamicByIdGw(Integer id) {
+        Dynamic dynamic=dynamicService.getDynamicById(id);
+        ModelAndView model = new ModelAndView("/siifi/news-content");
+        model.addObject("dynamic", dynamic);
+        return model;
+    }
+
+    /**
+     * 保存前端变量(智能产业)
+     *
+     * @param reqMap
+     * @return
+     */
+    @RequestMapping(value = "/saveNna", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> saveNna(@RequestParam int n) {
+        Map<String, Object> map = new HashMap<>();
+        String nn = String.valueOf(n);
+        Tid tid = new Tid();
+        tid.setId(2);
+        tid.setTid(nn);
+        tidService.editTid(tid);
+        map.put("message", "1");
+        return map;
+    }
+
+    /**
+     * 取出前端变量(智能产业)
+     *
+     * @return
+     */
+    @RequestMapping(value = "/findNna", method = RequestMethod.GET)
+    @ResponseBody
+    public Tid findNna() {
+        Tid tid = tidService.findByIdTid(2);
+        return tid;
+    }
+
+    /**
+     * 保存前端变量(生态产业)
+     *
+     * @param reqMap
+     * @return
+     */
+    @RequestMapping(value = "/saveNnb", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> saveNnb(@RequestParam int n) {
+        Map<String, Object> map = new HashMap<>();
+        String nn = String.valueOf(n);
+        Tid tid = new Tid();
+        tid.setId(3);
+        tid.setTid(nn);
+        tidService.editTid(tid);
+        map.put("message", "1");
+        return map;
+    }
+
+    /**
+     * 取出前端变量(生态产业)
+     *
+     * @return
+     */
+    @RequestMapping(value = "/findNnb", method = RequestMethod.GET)
+    @ResponseBody
+    public Tid findNnb() {
+        Tid tid = tidService.findByIdTid(3);
+        return tid;
+    }
+
+    /**
+     * 保存前端变量(文化传媒)
+     *
+     * @param reqMap
+     * @return
+     */
+    @RequestMapping(value = "/saveNnc", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> saveNnc(@RequestParam int n) {
+        Map<String, Object> map = new HashMap<>();
+        String nn = String.valueOf(n);
+        Tid tid = new Tid();
+        tid.setId(4);
+        tid.setTid(nn);
+        tidService.editTid(tid);
+        map.put("message", "1");
+        return map;
+    }
+
+    /**
+     * 取出前端变量(文化传媒)
+     *
+     * @return
+     */
+    @RequestMapping(value = "/findNnc", method = RequestMethod.GET)
+    @ResponseBody
+    public Tid findNnc() {
+        Tid tid = tidService.findByIdTid(4);
+        return tid;
+    }
+
+    /**
+     * 保存前端变量(教育培训)
+     *
+     * @param reqMap
+     * @return
+     */
+    @RequestMapping(value = "/saveNnd", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> saveNnd(@RequestParam int n) {
+        Map<String, Object> map = new HashMap<>();
+        String nn = String.valueOf(n);
+        Tid tid = new Tid();
+        tid.setId(5);
+        tid.setTid(nn);
+        tidService.editTid(tid);
+        map.put("message", "1");
+        return map;
+    }
+
+    /**
+     *取出前端变量(教育培训)
+     * @return
+     */
+    @RequestMapping(value = "/findNnd", method = RequestMethod.GET)
+    @ResponseBody
+    public Tid findNnd() {
+        Tid tid = tidService.findByIdTid(5);
+        return tid;
     }
 }
