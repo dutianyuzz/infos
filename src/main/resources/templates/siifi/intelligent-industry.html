@@ -142,50 +142,6 @@
             }
         });
     });
-
- /*   $(function () {
-        var le = $(".cmain li").length;
-        for (var i = 0; i < le; i++){
-            //点击时存储id
-            if (i == 0) {
-                $("#test0").css({
-                    "border-bottom": "2px solid #44a8f2",
-                    "color": "#44a8f2"
-                });
-            }
-        }
-        // 从本地存储中获取存储的id
-        var liClick = sessionStorage.getItem('liClick');
-        if (liClick) {
-            //改变父控件背景颜色
-            $('#' + liClick).parentsUntil("ul").css({
-                "border-bottom": "2px solid #44a8f2"
-            });
-            //改变父控件中的字体颜色
-            $('#' + liClick).parentsUntil("ul").find('a span').css({
-                "color": "#44a8f2"
-            });
-            //跳转后首页删除选中状态
-            $('#active').removeClass('active');
-            $("#test0").css({
-                "border-bottom": "not specified",
-                "color": "not specified"
-            });
-        }
-        var windowUrl = window.location.href; //获取当前url链接
-        var test0 = windowUrl.split("?")[0];
-        var test1 = test0.split("http://localhost:8181/infos/intelligentIndustry")[1];
-        var t = $(this).find('a').attr('href');
-        				alert(windowUrl + "     *************     " + t);
-        //清除指定 sessionStorage
-        if (test1 == t) {
-            sessionStorage.removeItem("liClick");
-        }
-        //点击时存储id
-        $('.cmain ul').find('a').on('click', function () {
-            sessionStorage.setItem('liClick', $(this).attr('id'));
-        });
-    });*/
 </script>
 
 </html>

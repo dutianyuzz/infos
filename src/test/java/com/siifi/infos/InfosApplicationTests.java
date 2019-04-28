@@ -1,10 +1,16 @@
 package com.siifi.infos;
 
+import com.siifi.infos.entity.Product;
 import com.siifi.infos.entity.Store;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -20,7 +26,7 @@ public class InfosApplicationTests {
 		当str1调用intern的时候，会检查字符串池中是否含有该字符串。定义的str1已经进入字符串池中，会直接得到字符串的引用。 */
         String str1 = "aa123a";
         System.out.println(str1 == str1.intern());	    //true
-        //这好像用上面的解释不通了，以下求解释
+        //
         String str3 = new String("杜") + new String("天雨");
         System.out.println(str3 == str3.intern());   //true
 
@@ -55,4 +61,42 @@ public class InfosApplicationTests {
         String u = new String(m);
         String v = new String("hello,world");
     }
+    @org.junit.Test
+    public void test1(){
+        Product product=new Product();
+        Product pro=product;
+        pro.setProductName("test");
+        System.out.println(product.getProductName());
+/*        System.out.println(pro.getProductName());*/
+        String str1="123";
+        String str2=new String("123");
+        System.out.println(str1 == str2);
+        System.out.println(str1.equals(str2));
+    }
+
+    @org.junit.Test
+    public void test2(){
+        List<Integer> list=new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        for (int i =0;i<list.size();i++){
+            list.remove(i);
+            System.out.println(list.get(i));
+        }
+        Iterator<Integer> iterator=list.iterator();
+        while (iterator.hasNext()){
+            Integer  next=iterator.next();
+            iterator.remove();
+            System.out.println(next);
+
+        }
+    }
+    @org.junit.Test
+    public void test3(){
+       Integer i1 =100,i2=100,i3=150,i4=150;
+       System.out.println(i1 == i2);
+       System.out.println(i3 == i4);
+    }
+
 }

@@ -3,9 +3,9 @@
 <head>
     <title>修改新闻</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/laydate.css"/>
-    <link rel="stylesheet" href="/css/layui.css"/>
-    <link rel="stylesheet" href="/css/columnsave.css">
+    <link rel="stylesheet" href="../css/laydate.css"/>
+    <link rel="stylesheet" href="../css/layui.css"/>
+    <link rel="stylesheet" href="../css/columnsave.css">
     <style type="text/css">
         .select-date {
             position: absolute;
@@ -129,11 +129,11 @@
         <input type="button" id="btn-return" value="返回" class="btnReturn">
     </div>
 </div>
-<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" charset="utf-8" src="/js/laydate.js"></script>
+<script src="../js/jquery/jquery-3.3.1.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/laydate.js"></script>
 <script type="text/javascript">
     var ue = UE.getEditor('editor');
     $(function () {
@@ -231,7 +231,6 @@
                 });
             }
             if (imgPath == "" && imgPath.length == 0) {
-                alert("asdasd");
                 //数据上传 不改变图片
                 $.ajax({
                     url: '/infos/editDynamic',

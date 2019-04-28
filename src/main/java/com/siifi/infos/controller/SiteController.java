@@ -4,11 +4,14 @@ import com.siifi.infos.entity.*;
 import com.siifi.infos.service.column.ColumnService;
 import com.siifi.infos.service.cultivate.CultivateService;
 import com.siifi.infos.service.dynamic.DynamicService;
+import com.siifi.infos.service.honey.HoneyService;
 import com.siifi.infos.service.intell.IntellService;
 import com.siifi.infos.service.invite.InviteService;
 import com.siifi.infos.service.media.MediaService;
+import com.siifi.infos.service.product.ProductService;
 import com.siifi.infos.service.tid.TidService;
 import com.siifi.infos.service.zoology.ZoologyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,6 +40,10 @@ public class SiteController {
     private DynamicService dynamicService;
     @Resource
     private TidService tidService;
+    @Resource
+    private HoneyService honeyService;
+    @Resource
+    private ProductService productService;
     /**
      * 首页
      *
@@ -44,7 +51,7 @@ public class SiteController {
      */
     @RequestMapping("/siifi.html")
     public String index() {
-        return "/siifi/siifi";
+        return "siifi/siifi";
     }
 
     /**
@@ -54,12 +61,12 @@ public class SiteController {
      */
     @RequestMapping("/login.html")
     public String login() {
-        return "/siifi/login";
+        return "siifi/login";
     }
 
     @RequestMapping("/register.html")
     public String register() {
-        return "/siifi/register";
+        return "siifi/register";
     }
 
     /**
@@ -82,7 +89,7 @@ public class SiteController {
         box.setZoologyId(zoologyId);
         box.setMediaId(mediaId);
         box.setCultivateId(cultivateId);
-        ModelAndView model = new ModelAndView("/siifi/top-navigation-bar");
+        ModelAndView model = new ModelAndView("siifi/top-navigation-bar");
         model.addObject("box", box);
         return model;
     }
@@ -107,7 +114,7 @@ public class SiteController {
         box.setZoologyId(zoologyId);
         box.setMediaId(mediaId);
         box.setCultivateId(cultivateId);
-        ModelAndView model = new ModelAndView("/siifi/bottom-navigation-bar");
+        ModelAndView model = new ModelAndView("siifi/bottom-navigation-bar");
         model.addObject("box", box);
         return model;
     }
@@ -119,7 +126,7 @@ public class SiteController {
      */
     @RequestMapping("/contactInformation")
     public String ContactInformation() {
-        return "/siifi/contact-information";
+        return "siifi/contact-information";
     }
 
 
@@ -132,7 +139,7 @@ public class SiteController {
     @RequestMapping("/generalDetailsPage")
     public ModelAndView findColumn(Integer id) {
         Column column = columnService.getColumnById(id);
-        ModelAndView model = new ModelAndView("/siifi/general-details-page");
+        ModelAndView model = new ModelAndView("siifi/general-details-page");
         model.addObject("column", column);
         return model;
     }
@@ -144,7 +151,7 @@ public class SiteController {
      */
     @RequestMapping("/enterpriseQualification")
     public String aboutCer() {
-        return "/siifi/enterprise-qualification";
+        return "siifi/enterprise-qualification";
     }
 
     /**
@@ -155,7 +162,7 @@ public class SiteController {
     @RequestMapping("/intelligentIndustry")
     public ModelAndView findIntell(Integer id) {
         Intell intell = intellService.getIntellById(id);
-        ModelAndView model = new ModelAndView("/siifi/intelligent-industry");
+        ModelAndView model = new ModelAndView("siifi/intelligent-industry");
         model.addObject("intell", intell);
         return model;
     }
@@ -167,7 +174,7 @@ public class SiteController {
      */
     @RequestMapping("/intelligentClassicCase")
     public String industryCase() {
-        return "/siifi/intelligent-classic-case";
+        return "siifi/intelligent-classic-case";
     }
 
     /**
@@ -178,7 +185,7 @@ public class SiteController {
     @RequestMapping("/industryEcology")
     public ModelAndView industryEcology(Integer id) {
         Zoology zoology = zoologyService.getZoologyById(id);
-        ModelAndView model = new ModelAndView("/siifi/industry-ecology");
+        ModelAndView model = new ModelAndView("siifi/industry-ecology");
         model.addObject("zoology", zoology);
         return model;
     }
@@ -191,7 +198,7 @@ public class SiteController {
     @RequestMapping("/industryMedia")
     public ModelAndView industryMedia(Integer id) {
         Media media = mediaService.getMediaById(id);
-        ModelAndView model = new ModelAndView("/siifi/industry-media");
+        ModelAndView model = new ModelAndView("siifi/industry-media");
         model.addObject("media", media);
         return model;
     }
@@ -204,7 +211,7 @@ public class SiteController {
     @RequestMapping("/industryEducation")
     public ModelAndView industryEducation(Integer id) {
         Cultivate cultivate = cultivateService.getCultivateById(id);
-        ModelAndView model = new ModelAndView("/siifi/industry-education");
+        ModelAndView model = new ModelAndView("siifi/industry-education");
         model.addObject("cultivate", cultivate);
         return model;
     }
@@ -216,7 +223,7 @@ public class SiteController {
      */
     @RequestMapping("/responsibilityHonest")
     public String responsibilityHonest() {
-        return "/siifi/responsibility-honest";
+        return "siifi/responsibility-honest";
     }
 
     /**
@@ -226,7 +233,7 @@ public class SiteController {
      */
     @RequestMapping("/responsibilityBlacklist")
     public String responsibilityBlacklist() {
-        return "/siifi/responsibility-blacklist";
+        return "siifi/responsibility-blacklist";
     }
 
     /**
@@ -236,7 +243,7 @@ public class SiteController {
      */
     @RequestMapping("/contact")
     public String contact() {
-        return "/siifi/contact";
+        return "siifi/contact";
     }
 
     /**
@@ -246,7 +253,7 @@ public class SiteController {
      */
     @RequestMapping("/recruitingIntroduction")
     public String recruitingIntroduction() {
-        return "/siifi/recruiting-introduction";
+        return "siifi/recruiting-introduction";
     }
 
     /**
@@ -256,7 +263,7 @@ public class SiteController {
      */
     @RequestMapping("/recruitingPosition")
     public String recruitingPosition() {
-        return "/siifi/recruiting-position";
+        return "siifi/recruiting-position";
     }
 
     /**
@@ -268,7 +275,7 @@ public class SiteController {
     public ModelAndView applyOnline(Integer id) {
         System.out.println(id);
         Invite invite = inviteService.getInviteById(id);
-        ModelAndView model = new ModelAndView("/siifi/recruit-details");
+        ModelAndView model = new ModelAndView("siifi/recruit-details");
         model.addObject("invite", invite);
         return model;
     }
@@ -279,7 +286,7 @@ public class SiteController {
      */
     @RequestMapping("/news")
     public String news(){
-        return "/siifi/news";
+        return "siifi/news";
     }
     /**
      * 根据新闻id查数据(跳转集团动态新闻（详情页面）)
@@ -289,10 +296,39 @@ public class SiteController {
     @RequestMapping("/findDynamicByIdGw")
     public ModelAndView findDynamicByIdGw(Integer id) {
         Dynamic dynamic=dynamicService.getDynamicById(id);
-        ModelAndView model = new ModelAndView("/siifi/news-content");
+        ModelAndView model = new ModelAndView("siifi/news-content");
         model.addObject("dynamic", dynamic);
         return model;
     }
+
+    /**
+     * 根据id查企业资质图片
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/honeyImage")
+    public ModelAndView findImage(Integer id) {
+        Honey honey = honeyService.getHoneyById(id);
+        ModelAndView model = new ModelAndView("siifi/enterprise-qualification-image");
+        model.addObject("honey", honey);
+        return model;
+    }
+
+    /**
+     * 根据id查案例图片
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/productImage")
+    public ModelAndView findProductImage(Integer id) {
+        Product product = productService.getProductById(id);
+        ModelAndView model = new ModelAndView("siifi/intelligent-classic-case-image");
+        model.addObject("product", product);
+        return model;
+    }
+
 
     /**
      * 保存前端变量(智能产业)

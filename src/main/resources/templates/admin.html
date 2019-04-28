@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>中网国金-后台登录</title>
-    <link rel="stylesheet" href="../css/login/amazeui.css"/>
-    <link rel="stylesheet" href="../css/login/other.min.css"/>
+    <link rel="stylesheet" href="/css/login/amazeui.css"/>
+    <link rel="stylesheet" href="/css/login/other.min.css"/>
+    <style>
+        @font-face {
+            font-family: fontawesome;
+            src: url(../fonts/fontawesome-webfont.ttf), url(../fonts/fontawesome-webfont.woff)
+        }
+    </style>
 </head>
 <body class="login-container">
 <div class="login-box">
@@ -24,7 +30,7 @@
         <input type="submit" value="登录" class="am-btn am-btn-secondary" id="buttons">
     </form>
 </div>
-<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<script src="../js/jquery/jquery-3.3.1.js"></script>
 <script type="text/javascript">
     $('#buttons').click(function () {
         var userName = $("#username").val();

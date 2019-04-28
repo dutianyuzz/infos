@@ -2,7 +2,7 @@
 	width: 100%;
 	height: 100%;
 	margin-top: 150px;
-	background: url(../images/login-bg.jpg);
+	background: url(../images/siifi/login-bg.jpg);
 	position: relative
 }
 
@@ -72,7 +72,7 @@
 .register-container {
 	width: 100%;
 	height: 100%;
-	background: url(../images/login-bg.jpg)
+	background: url(../images/siifi/login-bg.jpg)
 }
 
 .register-container .register-box {
